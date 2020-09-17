@@ -230,13 +230,13 @@ jobs:
             ☆  分支 : ${{ env.REPO_BRANCH }}
             ☆  感谢源码作者无私分享！
             
-            🔥 [ ${{matrix.target}} ]固件下载 ✨
+            🎉 [ ${{matrix.target}} ]固件下载 ✨
             
             💐 奶牛快传(国内高速🚀下载)： ${{ env.COWTRANSFER_URL }}
             
-            🗽 WeTransfer(国外高速🚀下载)： ${{ env.WETRANSFER_URL }}
+            ⛄ WeTransfer(国外高速🚀下载)： ${{ env.WETRANSFER_URL }}
             
-            🌴 链接有效期为7天，无需注册直接下载 🎉
+            🌴 链接有效期为7天，无需注册直接下载 🐤
         files: ${{ env.FIRMWARE }}/*
 
     - name: 微信通知
