@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_x86_64,Lede_redmi_ac2100,Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64,Project_newifi_d2,Project_phicomm_k3,Project_x86_64]
+        target: [Lede_x86_64]  #[Lede_x86_64,Lede_redmi_ac2100,Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64,Project_newifi_d2,Project_phicomm_k3,Project_x86_64]
 
     steps:
     - name: 准备结束
