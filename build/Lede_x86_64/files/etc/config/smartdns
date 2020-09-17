@@ -31,7 +31,7 @@ config smartdns
 config server
 	option enabled '1'
 	option type 'udp'
-	option name '114'
+	option name '114dns'
 	option ip '114.114.114.114'
 	option port '53'
 
