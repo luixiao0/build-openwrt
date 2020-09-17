@@ -1,0 +1,13 @@
+--- target/linux/ramips/image/mt7621.mk	2020-09-15 07:06:50.000000000 +0000
++++ target/linux/ramips/image/mt7621.mk	2020-09-15 07:09:27.000000000 +0000
+@@ -255,8 +255,9 @@
+ 
+ define Device/k2p
+   DTS := K2P
+-  IMAGE_SIZE := $(ralink_default_fw_size_16M)
++  IMAGE_SIZE := 32448k
+   DEVICE_TITLE := Phicomm K2P
++  DEVICE_PACKAGES := kmod-mt7615d luci-app-mtwifi
+ endef
+ TARGET_DEVICES += k2p
+ 
