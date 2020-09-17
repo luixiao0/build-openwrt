@@ -161,7 +161,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: OpenWrt_bin_${{ env.DEVICE_NAME }}_${{ env.date }}
+        name: OpenWrt_bin_${{matrix.target}}_${{ env.date }}
         path: openwrt/bin
 
     - name: 整理固件文件夹
