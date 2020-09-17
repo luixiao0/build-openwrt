@@ -12,10 +12,12 @@
 
 #
 #
-- 感谢coolsnowwolf大神提供的源码
-- 感谢Lienol大神提供的源码
-- 感谢ctcgfw大神提供的源码
-- 感谢p3terx大神提供的一键编译脚本
+- 感谢[coolsnowwolf](https://github.com/coolsnowwolf/lede.git)大神提供的源码
+- 感谢[Lienol](https://github.com/Lienol/openwrt.git)大神提供的源码
+- 感谢[ctcgfw](https://github.com/project-openwrt/openwrt.git)大神提供的源码
+- 感谢[P3TERX](https://github.com/P3TERX/Actions-OpenWrt)大神提供的一键编译脚本
+- 感谢[garypang13大神](https://github.com/garypang13/Actions-OpenWrt)我现在的脚本很多源码都用他的
+- 感谢[hyird大神](https://github.com/hyird/Action-Openwrt)是这仁兄告诉我有patch补丁这回事的
 - 感谢微软免费提供的编译平台
 - 感谢各位大佬提供的各种各样的插件
 - 感谢各位帮助过我的人，祝福各位好人一生平安
