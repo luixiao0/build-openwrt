@@ -1,0 +1,263 @@
+#
+#
+# 感谢p3terx大神的一键编译脚本
+# 
+# Copyright (C) 2019 P3TERX <https://p3terx.com>
+# <https://github.com/P3TERX/Actions-OpenWrt.git>
+#
+#修改以下代码或者开启触发开关都好，要严格按格式对好,前面有多少空格也要看清楚
+#代码里有 name: 后面的内容随便改,冒号后面是有个空格的,如果修改固件名字就要考虑能不能显示出你想要的
+
+
+name: 编译固件
+
+on:
+  repository_dispatch:
+
+#编辑任意指定文件触发开始编译(去掉下面5个#开启,最下面一行是指定修改什么文件就触发编译,我现在是修改diy.config文件触发)
+  push:
+    branches:
+      - master
+    paths:
+      - 'build/开启编译openwrt'
+
+
+#定时触发开始编译(开启定时编译请先关闭SSH,要不然SSH没人管,会卡SSH编译失败)
+#  schedule:
+#    - cron: 0 8 */5 * *
+
+
+#点☆Star触发开始编译
+#  watch:
+#    types: started
+
+env:
+  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+  SCKEY: ${{ secrets.SCKEY }}
+  GITHUB_RELEASE: https://github.com/281677160/Actions-OpenWrt/releases
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    name: 编译 ${{matrix.target}}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [Lede_x86_64,Lede_redmi_ac2100,Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64,Project_newifi_d2,Project_phicomm_k3,Project_x86_64]
+
+    steps:
+    - name: 准备结束
+      uses: actions/checkout@v2
+ 
+    - name: 检测脚本设置
+      run: |
+        source "${GITHUB_WORKSPACE}/build/${{matrix.target}}/settings.ini"
+        echo "::set-env name=REPO_URL::${REPO_URL}"
+        echo "::set-env name=REPO_BRANCH::${REPO_BRANCH}"
+        echo "::set-env name=CONFIG_FILE::${CONFIG_FILE}"
+        echo "::set-env name=WXFB_MESSAGE::${WXFB_MESSAGE}"
+        echo "::set-env name=DIY_P1_SH::${DIY_P1_SH}"
+        echo "::set-env name=DIY_P2_SH::${DIY_P2_SH}"
+        echo "::set-env name=SSH_ACTIONS::${SSH_ACTIONS}"
+        echo "::set-env name=UPLOAD_BIN_DIR::${UPLOAD_BIN_DIR}"
+        echo "::set-env name=UPLOAD_CONFIG::${UPLOAD_CONFIG}"
+        echo "::set-env name=UPLOAD_FIRMWARE::${UPLOAD_FIRMWARE}"
+        echo "::set-env name=UPLOAD_COWTRANSFER::${UPLOAD_COWTRANSFER}"
+        echo "::set-env name=UPLOAD_RELEASE::${UPLOAD_RELEASE}"
+        echo "::set-env name=SERVERCHAN_SCKEY::${SERVERCHAN_SCKEY}"
+    
+    - name: 微信通知
+      if: env.SERVERCHAN_SCKEY == 'true'
+      uses: emon100/Action-Serverchan@master
+      with:
+        SCKEY: ${{ secrets.SCKEY }}
+        text: 开始编译${{matrix.target}}啦
+        desp: 主人您设置要编译的[${{ env.WXFB_MESSAGE }}]固件正在努力耕耘中......
+    
+    - name: 开始安装编译所需系统
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: 下载固件源码
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: 加载源,patch补丁和自定义设置
+      run: |
+        cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
+        cd openwrt
+        echo "Apply patches"
+        if [ -n "$(ls -A "build/${{matrix.target}}/patches" 2>/dev/null)" ]; then
+        (
+          find "build/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p0 --forward" || true
+        )
+        fi
+        if [ -f "build/${{matrix.target}}/$DIY_P1_SH" ]; then
+        (
+          chmod +x build/${{matrix.target}}/$DIY_P1_SH
+          /bin/bash "build/${{matrix.target}}/$DIY_P1_SH"
+        )
+        fi
+        ./scripts/feeds clean
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+        if [ -n "$(ls -A "build/${{matrix.target}}/files" 2>/dev/null)" ]; then
+         cp -rf build/${{matrix.target}}/files files
+        fi
+        if [ -n "$(ls -A "build/${{matrix.target}}/diy" 2>/dev/null)" ]; then
+         cp -Rf build/${{matrix.target}}/diy/* ./
+        fi        
+        if [ -f "build/${{matrix.target}}/$DIY_P2_SH" ]; then
+        (
+          chmod +x build/${{matrix.target}}/$DIY_P2_SH
+          /bin/bash "build/${{matrix.target}}/$DIY_P2_SH"
+        )
+        fi
+         mv build/${{matrix.target}}/$CONFIG_FILE .config
+         make defconfig
+        [ $(grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/') == generic ] && DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/CONFIG_TARGET_(.*)_DEVICE_.*=y/\1/') || DEVICE_NAME=$(grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/')
+        DEVICE_NAME=`echo ${DEVICE_NAME/xiaomi_redmi-router/redmi}`
+        echo "::set-env name=DEVICE_NAME::$DEVICE_NAME"
+    
+    - name: SSH远程连接服务器配置固件
+      uses: P3TERX/debugger-action@main
+      if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
+
+    - name: 下载软件包
+      id: package
+      run: |
+        cd openwrt
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    - name: 开始编译固件
+      id: compile
+      run: |
+        cd openwrt
+        echo -e "$(nproc) thread compile"
+        make -j$(nproc) || make -j1 || make -j1 V=s
+        echo "::set-output name=status::success"
+        echo "::set-env name=date::$(date "+%Y-%m-%d %H.%M.%S")"
+        echo "::set-env name=date1::$(date +'%Y年%m月%d号-%H点%M分')"
+        echo "::set-env name=date2::$(date +'%Y%m%d-%H%M')"
+    
+    - name: 上传bin文件夹(固件+ipk)在github空间
+      uses: actions/upload-artifact@v2
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      with:
+        name: OpenWrt_bin_${{ env.DEVICE_NAME }}_${{ env.date }}
+        path: openwrt/bin
+
+    - name: 整理固件文件夹
+      id: organizer
+      run: |
+        mkdir config
+        find openwrt/bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} config        
+        cd openwrt/bin/targets/*/*
+        rm -rf packages && mkdir packages
+        find -name "*.buildinfo*" | xargs -i mv -f {} packages
+        find -name "*sha256sums*" | xargs -i mv -f {} packages
+        find -name "*kernel.bin*" | xargs -i mv -f {} packages
+        find -name "*kernel1.bin*" | xargs -i mv -f {} packages
+        find -name "*rootfs*" | xargs -i mv -f {} packages
+        find -name "*.manifest*" | xargs -i mv -f {} packages
+        find -name "*vmlinuz*" | xargs -i mv -f {} packages
+        find -name "*esxi.vmdk*" | xargs -i mv -f {} packages
+        rm -rf packages
+        echo "::set-env name=FIRMWARE::$PWD"
+        echo "::set-output name=status::success"
+        
+    - name: 上传.config配置文件在github空间    
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
+      uses: actions/upload-artifact@v2
+      with:
+        name: .config_${{matrix.target}}_${{ env.date }}
+        path: ./config
+
+    - name: 上传固件在github空间
+      uses: actions/upload-artifact@v2
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
+      with:
+        name: OpenWrt_firmware_${{ env.DEVICE_NAME }}_${{ env.date }}
+        path: ${{ env.FIRMWARE }}
+
+    - name: 上传固件到「奶牛快传」和「wetransfer」
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+    
+    - name: 提取发布用的「奶牛快传」跟「WeTransfer」的链接
+      if: steps.organizer.outputs.status == 'success' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+        echo "::set-env name=COWTRANSFER_URL::$(cat cowtransfer.log | grep https | cut -f3 -d" ")" 
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+        echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"    
+    
+    - name: 自动发布固件
+      uses: softprops/action-gh-release@v1
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      with:
+        name: ${{ env.date1 }} 「 ${{ env.WXFB_MESSAGE }} 」固件
+        tag_name: ${{ env.date2 }}
+        body: |            
+            ☆  源码 : ${{ env.REPO_URL }}
+            ☆  分支 : ${{ env.REPO_BRANCH }}
+            ☆  感谢源码作者无私分享！
+            
+            🎉 [ ${{matrix.target}} ]固件下载 ✨
+            
+            💐 奶牛快传(国内高速🚀下载)： ${{ env.COWTRANSFER_URL }}
+            
+            ⛄ WeTransfer(国外高速🚀下载)： ${{ env.WETRANSFER_URL }}
+            
+            🌴 链接有效期为7天，无需注册直接下载 🐤
+        files: ${{ env.FIRMWARE }}/*
+
+    - name: 微信通知
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
+      uses: emon100/Action-Serverchan@master
+      with:
+        SCKEY: ${{ secrets.SCKEY }}
+        text: 恭喜主人${{matrix.target}}固件编译成功！
+        desp: 我亲爱的主人您要编译的${{ env.WXFB_MESSAGE }}固件编译成功！
+              
+              
+              完成时间：${{ env.date1 }}
+              
+              
+              发布地址：${{ env.GITHUB_RELEASE }}
+              
+              
+              奶牛快传：${{ env.COWTRANSFER_URL }}
+              
+              
+              WeTransfer：${{ env.WETRANSFER_URL }}
+              
+              
+              祝小主人见人爱，花见花开，车见车载，天天好心情🎈！！！
