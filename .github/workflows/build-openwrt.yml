@@ -153,7 +153,7 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "::set-output name=status::success"
-        echo "::set-env name=date::$(date "+%Y-%m-%d %H.%M.%S")"
+        echo "::set-env name=date::$(date "+%Y-%m-%d %H.%M")"
         echo "::set-env name=date1::$(date +'%Y年%m月%d号-%H点%M分')"
         echo "::set-env name=date2::$(date +'%Y%m%d-%H%M')"
     
@@ -194,7 +194,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
-        name: OpenWrt_firmware_${{ env.DEVICE_NAME }}_${{ env.date }}
+        name: OpenWrt_firmware_${{matrix.target}}_${{ env.date }}
         path: ${{ env.FIRMWARE }}
 
     - name: 上传固件到「奶牛快传」和「wetransfer」
