@@ -14,7 +14,7 @@ name: 编译固件
 on:
   repository_dispatch:
 
-#编辑任意指定文件触发开始编译(去掉下面5个#开启,最下面一行是指定修改什么文件就触发编译,我现在是修改diy.config文件触发)
+#编辑任意指定文件触发开始编译（修改build文件夹的【开启编译openwrt】就能启动编译）
   push:
     branches:
       - master
@@ -28,7 +28,7 @@ on:
 
 
 #点☆Star触发开始编译
-#  watch:
+  watch:
 #    types: started
 
 env:
@@ -245,7 +245,7 @@ jobs:
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 恭喜主人${{matrix.target}}固件编译成功！
-        desp: 我亲爱的主人您要编译的${{ env.WXFB_MESSAGE }}固件编译成功！
+        desp: 我亲爱的主人您要编译的${{ env.WXFB_MESSAGE }}固件成功完成了！
               
               
               完成时间：${{ env.date1 }}
