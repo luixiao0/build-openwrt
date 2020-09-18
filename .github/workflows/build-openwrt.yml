@@ -17,11 +17,11 @@ on:
       name:
         description: 'Person to greet'
         required: true
-        default: 'openwrt'
+        default: 'build-openwrt'
       home:
         description: 'location'
         required: false
-        default: 'Actions'
+        default: '点击绿色按钮启动'
 
 #编辑任意指定文件触发开始编译（修改build文件夹的【开启编译openwrt】就能启动编译）
   push:
