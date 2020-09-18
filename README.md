@@ -12,6 +12,7 @@
 
 - 老的那些脚本我就不更新了
 
+- ctcgfw大神源码的banner文件在那里，我找了很久都没找到，有知道的告诉一下，谢谢！
 #
 #
 - 感谢[coolsnowwolf](https://github.com/coolsnowwolf/lede.git)大神提供的源码
