@@ -1,10 +1,10 @@
 # Actions-OpenWrt 
 
-- 2020/9/19增加一个手动启动按钮。[教程](https://github.com/danshui-git/shuoming/blob/master/%E6%89%8B%E5%8A%A8%E5%BC%80%E5%A7%8B.md)
+- 2020/9/19增加一个手动启动按钮。[[教程](https://github.com/danshui-git/shuoming/blob/master/%E6%89%8B%E5%8A%A8%E5%BC%80%E5%A7%8B.md)]
 
 - 使用教程我就不更新了，反正也没几个人用，如果你们谁有兴趣的话可以建个群来的，我把群号放这里，有群比较容易沟通，不懂的问都比较有地方问，大家在编译中遇到的问题也比较容易解决
 
-- 在没有设置好微信通知跟发布的密匙情况下，请勿打开微信通知跟发布功能，要不然直接卡在微信通知那里编译失败了。[密匙获取跟使用方法](https://github.com/danshui-git/shuoming/blob/master/ms.md)
+- 在没有设置好微信通知跟发布的密匙情况下，请勿打开微信通知跟发布功能，要不然直接卡在微信通知那里编译失败了。[[密匙获取跟使用方法](https://github.com/danshui-git/shuoming/blob/master/ms.md)]
 
 - SSH远程配置固、微信通知、自动发布固件件默认关闭，有需要的请自行到 build文件夹--对应机型文件夹--settings.ini 自行打开
 
