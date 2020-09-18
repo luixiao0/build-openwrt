@@ -1,6 +1,6 @@
 # Actions-OpenWrt 
 
-- 增加一个手动启动按钮。[教程](https://github.com/danshui-git/shuoming/blob/master/%E6%89%8B%E5%8A%A8%E5%BC%80%E5%A7%8B.md)
+- 2020/9/19增加一个手动启动按钮。[教程](https://github.com/danshui-git/shuoming/blob/master/%E6%89%8B%E5%8A%A8%E5%BC%80%E5%A7%8B.md)
 
 - 使用教程我就不更新了，反正也没几个人用，如果你们谁有兴趣的话可以建个群来的，我把群号放这里，有群比较容易沟通，不懂的问都比较有地方问，大家在编译中遇到的问题也比较容易解决
 
