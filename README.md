@@ -18,8 +18,8 @@
 - 感谢[ctcgfw](https://github.com/project-openwrt/openwrt.git)大神提供的源码
 - 感谢[P3TERX](https://github.com/P3TERX/Actions-OpenWrt)大神提供的一键编译脚本
 - 感谢[garypang13](https://github.com/garypang13/Actions-OpenWrt)大神，我现在的脚本很多源码都抄他的
-- 感谢[hyird大神](https://github.com/hyird/Action-Openwrt)是这仁兄告诉我有patch补丁这回事的
-- 还有要感谢一位仁兄在我刚接触云编译时告诉我使用files大法修改设置的，可惜我不记得这个仁兄的名字了，非常抱歉
+- 感谢[hyird大神](https://github.com/hyird/Action-Openwrt)，是这仁兄告诉我有patch补丁这回事的
+- 还有要感谢一位仁兄在我刚接触云编译时告诉我使用files修改设置的，可惜我不记得这个仁兄的名字了，非常抱歉
 - 感谢微软免费提供的编译平台
 - 感谢各位大佬提供的各种各样的插件
 - 感谢各位帮助过我的人，祝福各位好人一生平安
