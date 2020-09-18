@@ -9,10 +9,19 @@
 #代码里有 name: 后面的内容随便改,冒号后面是有个空格的,如果修改固件名字就要考虑能不能显示出你想要的
 
 
-name: 编译固件
+name: 编译OpenWrt固件
 
 on:
-  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'openwrt'
+      home:
+        description: 'location'
+        required: false
+        default: 'Actions'
 
 #编辑任意指定文件触发开始编译（修改build文件夹的【开启编译openwrt】就能启动编译）
   push:
@@ -38,6 +47,12 @@ env:
   TZ: Asia/Shanghai
 
 jobs:
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Deploy Environment: ${{ github.event.inputs.deployEnvironment }}"
+        echo "Log Level: ${{ github.event.inputs.logLevel }}" 
   build:
     runs-on: ubuntu-18.04
     if: github.event.repository.owner.id == github.event.sender.id
