@@ -2,9 +2,9 @@
 
 - 使用教程我就不更新了，反正也没几个人用，如果你们谁有兴趣的话可以建个群来的，我把群号放这里，有群比较容易沟通，不懂的问都比较有地方问，大家在编译中遇到的问题也比较容易解决
 
-- 在没有看懂怎么使用[微信通知跟发布](https://github.com/danshui-git/shuoming/blob/master/ms.md)的情况下，请关闭了微信通知跟发布功能，要不然可能直接卡在微信通知那里编译失败了
+- 在没有设置好微信通知跟发布的密匙情况下，请勿打开微信通知跟发布功能，要不然直接卡在微信通知那里编译失败了。[密匙获取跟使用方法](https://github.com/danshui-git/shuoming/blob/master/ms.md)
 
-- SSH远程配置固、微信通知、自动发布固件件默认关闭，有需要的请自行到 build文件夹--对应型文件夹--settings.ini 自行打开
+- SSH远程配置固、微信通知、自动发布固件件默认关闭，有需要的请自行到 build文件夹--对应机型文件夹--settings.ini 自行打开
 
 - [新脚本简单介绍](https://github.com/danshui-git/shuoming/blob/master/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%96%B0%E8%84%9A%E6%9C%AC.md)
 
