@@ -20,12 +20,12 @@ on:
         default: 'build-openwrt'
 
 
-#编辑任意指定文件触发开始编译（修改build文件夹的【开启编译openwrt】就能启动编译）
-  push:
-    branches:
-      - master
-    paths:
-      - 'build/开启编译openwrt'
+#编辑任意指定文件触发开始编译
+#  push:
+#    branches:
+#      - master
+#    paths:
+#      - '开启编译openwrt'
 
 
 #定时触发开始编译(开启定时编译请先确定SSH处在关闭状态,要不然SSH没人管,会卡SSH编译失败)
