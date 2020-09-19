@@ -5,8 +5,6 @@
 # Copyright (C) 2019 P3TERX <https://p3terx.com>
 # <https://github.com/P3TERX/Actions-OpenWrt.git>
 #
-#修改以下代码或者开启触发开关都好，要严格按格式对好,前面有多少空格也要看清楚
-#代码里有 name: 后面的内容随便改,冒号后面是有个空格的,如果修改固件名字就要考虑能不能显示出你想要的
 
 
 name: 编译OpenWrt固件
