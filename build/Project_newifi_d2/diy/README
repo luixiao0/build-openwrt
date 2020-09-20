@@ -1,4 +1,4 @@
-替换文件用的文件夹，按照源码路径替换
+﻿替换文件用的文件夹，按照源码路径替换
 比如替换package/lean/default-settings/files/openwrt_banner 这个就是ProJect-18.06的banner路径跟lede跟lienol的不一样
 
 替换文件有两个方法
