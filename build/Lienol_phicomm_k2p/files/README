@@ -1,0 +1,6 @@
+替换openwrt设置文件的文件夹，设置好openwrt后
+用WinSCP(文件协议F选择SCP)连接openwrt，找到etc文件夹，里面就是openwrt的所有设置文件
+按照openwrt的路径把你设置好的文件放这里就好了
+一个个按路径复制粘贴内容也可以，不过这样比较累，下面说说我自己的做法
+用WinSCP(文件协议F选择SCP)连接openwrt，在电脑建立etc文件夹，然后找要替换的文件也按路径建立文件夹，然后在WinSCP直接把文件拖进去就好了
+一直这样把所有的文件都搞好，然后按 Create new file 然后选择 Upload files 然后把你在电脑建立的etc文件夹拖进来就可以了

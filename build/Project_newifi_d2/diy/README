@@ -1,0 +1,6 @@
+替换文件用的文件夹，按照源码路径替换
+比如替换package/base-files/files/etc/banner
+diy文件夹里面就相等于源码的根目录
+其实也挺简单的，就比如上面替换banner吧，在源码那里一直打开，然后打开banner文件
+然后在网址那里把路径'package/base-files/files/etc/banner'复制下来
+在这里按 Add file 然后选 Create new file 然后把复制的路径粘贴进去，下面大方框把你要替换的文件内容复制粘贴进去就好了
