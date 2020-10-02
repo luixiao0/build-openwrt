@@ -106,7 +106,6 @@ jobs:
       run: |
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         cd openwrt
-        echo "Apply patches"
         if [ -n "$(ls -A "build/${{matrix.target}}/patches" 2>/dev/null)" ]; then
         (
           find "build/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p0 --forward" || true
