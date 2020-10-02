@@ -1,7 +1,6 @@
-# Actions-OpenWrt 
 
-# 2020/9/25号说明
-- [lede源码个别插件编译出错问题，源码作者应该都修复好了，昨天做的v贰瑞补丁也可以撤了，各位编译的时候选择源码内置插件还发现有错误的话，可以到源码作者的仓库‘Issues’找答案或者提问的](#/README.md)
+# 2020/10/2号说明
+- [编译lede源码时候选择luci-app-ssr-plus中的v2ray-plugin会下载不了v2ray-plugin编译失败，用Lienol或者Project源码编译就不会出现这个情况](#/README.md)
 
 - [大家如果编译的时候没乱搞而又出现编译错误的，要善于在各个作者源码的‘Issues’找答案或者提问](#/README.md)
 
