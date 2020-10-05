@@ -19,11 +19,11 @@ on:
 
 
 #编辑任意指定文件触发开始编译
-#  push:
-#    branches:
-#      - master
-#    paths:
-#      - '开启编译openwrt'
+  push:
+    branches:
+      - master
+    paths:
+      - '开启编译'
 
 
 #定时触发开始编译(开启定时编译请先确定SSH处在关闭状态,要不然SSH没人管,会卡SSH编译失败)
