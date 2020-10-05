@@ -1,7 +1,4 @@
 
-# 2020/10/2号说明
-- [编译lede源码时候选择luci-app-ssr-plus中的v2ray-plugin会下载不了v2ray-plugin编译失败，用Lienol或者Project源码编译就不会出现这个情况](#/README.md)
-
 - [大家如果编译的时候没乱搞而又出现编译错误的，要善于在各个作者源码的‘Issues’找答案或者提问](#/README.md)
 
 #
