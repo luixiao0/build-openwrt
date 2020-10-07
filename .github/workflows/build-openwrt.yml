@@ -75,8 +75,8 @@ jobs:
         echo "::set-env name=SERVERCHAN_SCKEY::${SERVERCHAN_SCKEY}"
     
     - name: 微信通知
-      if: env.SERVERCHAN_SCKEY == 'true'
       uses: emon100/Action-Serverchan@master
+      if: env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 开始编译${{matrix.target}}啦
@@ -244,8 +244,8 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: 微信通知
-      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
       uses: emon100/Action-Serverchan@master
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 恭喜主人${{matrix.target}}固件编译成功！
