@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_x86_64,Lede_redmi_ac2100,Lede_newifi_d2,Lede_phicomm_k2p,Lienol_x86_64,Lienol_phicomm_k2p,Lienol_phicomm_k3,Project_x86_64,Project_newifi_d2,Project_phicomm_k3]
+        target: [Project_x86_64]  #[Lede_x86_64,Lede_redmi_ac2100,Lede_newifi_d2,Lede_phicomm_k2p,Lienol_x86_64,Lienol_phicomm_k2p,Lienol_phicomm_k3,Project_x86_64,Project_newifi_d2,Project_phicomm_k3]
 
     steps:
     - name: 准备结束
@@ -231,7 +231,7 @@ jobs:
             ☆  分支 : ${{ env.REPO_BRANCH }}
             ☆  感谢源码作者无私分享！
             
-            🎉 [ ${{matrix.target}} ]固件下载 ✨
+            🎉 [ ${{ env.WXFB_MESSAGE }} ]固件下载 ✨
             
             💐 奶牛快传(国内高速🚀下载)： ${{ env.COWTRANSFER_URL }}
             
@@ -240,6 +240,22 @@ jobs:
             🌴 链接有效期为7天，无需注册直接下载 🐤
         files: ${{ env.FIRMWARE }}/*
 
+    - name: 删除上传在github空间的老固件
+      uses: c-hive/gha-remove-artifacts@v1.2.0
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
+      with:
+        age: '1 day'
+        skip-recent: 3
+
+    - name: 删除自动发布的老固件
+      uses: dev-drprasad/delete-older-releases@v0.1.0
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
+      with:
+        keep_latest: 10
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
     - name: 微信通知
       uses: emon100/Action-Serverchan@master
       if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
@@ -262,19 +278,3 @@ jobs:
               
               
               祝小主人见人爱，花见花开，车见车载，天天好心情🎈！！！
-
-    - name: 删除上传在github空间的老固件
-      uses: c-hive/gha-remove-artifacts@v1.2.0
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
-      with:
-        age: '1 day'
-        skip-recent: 3
-
-    - name: 删除自动发布的老固件
-      uses: dev-drprasad/delete-older-releases@v0.1.0
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
-      with:
-        keep_latest: 10
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
