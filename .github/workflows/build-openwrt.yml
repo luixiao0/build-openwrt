@@ -21,7 +21,7 @@ on:
 #编辑任意指定文件触发开始编译
   push:
     branches:
-      - master
+      - main
     paths:
       - '开启编译'
 
@@ -55,7 +55,7 @@ jobs:
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
  
     - name: 检测脚本设置
       run: |
@@ -164,7 +164,7 @@ jobs:
         echo "date2=$(date "+%Y%m%d-%H%M")" >> $GITHUB_ENV
 
     - name: 上传bin文件夹(固件+ipk)在github空间
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin_${{matrix.target}}_${{ env.date }}
@@ -190,14 +190,14 @@ jobs:
         echo "::set-output name=status::success"
     
     - name: 上传.config配置文件在github空间
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@main
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
       with:
         name: .config_${{matrix.target}}_${{ env.date }}
         path: ./config
 
     - name: 上传固件在github空间
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@main
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
         name: OpenWrt_firmware_${{matrix.target}}_${{ env.date }}
