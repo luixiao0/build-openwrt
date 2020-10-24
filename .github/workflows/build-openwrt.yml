@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: '编译OpenWrt固件'
+        description: 'build-openwrt'
         required: true
-        default: 'build-openwrt'
+        default: '编译OpenWrt固件'
 
 
 #编辑任意指定文件触发开始编译
