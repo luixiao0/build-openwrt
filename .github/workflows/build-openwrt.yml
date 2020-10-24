@@ -14,7 +14,7 @@ on:
     inputs:
       main:
         description: 'build-openwrt'
-        required: false
+        required: true
         default: '编译OpenWrt固件'
 
 
