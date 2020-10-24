@@ -250,6 +250,7 @@ jobs:
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
         age: '1 day'
+        skip-tags: true
         skip-recent: 3
 
     - name: 删除自动发布的老固件
