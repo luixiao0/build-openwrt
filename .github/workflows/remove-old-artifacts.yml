@@ -1,6 +1,13 @@
 name: Remove old artifacts
 
 on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
   schedule:
     # Every day at 1am
     - cron: '0 1 * * *'
