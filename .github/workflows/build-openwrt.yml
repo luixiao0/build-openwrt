@@ -246,11 +246,11 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: 删除上传在github空间的老固件
-      uses: c-hive/gha-remove-artifacts@v1.2.0
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
+      uses: c-hive/gha-remove-artifacts@v1
       with:
         age: '1 day'
-        skip-recent: 3
+        skip-tags: true
+        skip-recent: 2
 
     - name: 删除自动发布的老固件
       uses: dev-drprasad/delete-older-releases@v0.1.0
