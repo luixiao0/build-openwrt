@@ -61,4 +61,4 @@ jobs:
       with:
         age: '0 day'
         skip-tags: true
-        skip-recent: 2
+        skip-recent: 4
