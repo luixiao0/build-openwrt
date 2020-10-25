@@ -247,6 +247,7 @@ jobs:
 
     - name: 删除上传在github空间的老固件
       uses: c-hive/gha-remove-artifacts@v1
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
         age: '1 day'   #删除多少天前的旧固件
 
