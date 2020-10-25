@@ -60,5 +60,3 @@ jobs:
       uses: c-hive/gha-remove-artifacts@v1
       with:
         age: '0 day'
-        skip-tags: true
-        skip-recent: 4
