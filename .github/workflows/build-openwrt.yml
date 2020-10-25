@@ -79,8 +79,8 @@ jobs:
       if: env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
-        text: 开始编译${{matrix.target}}啦
-        desp: 主人您设置要编译的[${{ env.WXFB_MESSAGE }}]固件正在努力耕耘中......
+        text: 主人${{matrix.target}}编译开始啦
+        desp: 主人您要编译的[${{ env.WXFB_MESSAGE }}]固件正在努力耕耘中.请耐心等待......
     
     - name: 开始安装编译所需系统
       env:
@@ -267,7 +267,7 @@ jobs:
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 恭喜主人${{matrix.target}}固件编译成功！
-        desp: 我亲爱的主人您要编译的${{ env.WXFB_MESSAGE }}固件成功完成了！
+        desp: 我亲爱的主人您要编译的${{ env.WXFB_MESSAGE }}固件成功编译完成了！
               
               
               完成时间：${{ env.date1 }}
