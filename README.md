@@ -14,7 +14,7 @@
 
 - SSH远程配置固、微信通知、自动发布固件等默认关闭，有需要的请自行到 build文件夹--对应机型文件夹--settings.ini 自行打开
 
-- [新脚本简单介绍](https://github.com/danshui-git/shuoming/blob/master/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%96%B0%E8%84%9A%E6%9C%AC.md)
+- [脚本简单介绍,大家最好看看了解了解](https://github.com/danshui-git/shuoming/blob/master/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%96%B0%E8%84%9A%E6%9C%AC.md)
 #
 #
 - 1、`注册及登录github账号`《[注册链接](https://github.com)》
