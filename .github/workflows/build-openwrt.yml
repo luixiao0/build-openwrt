@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       ssh:
-        description: 'SSH Actions'
+        description: 'build-openwrt'
         required: false
         default: 'ssh actions'
 
