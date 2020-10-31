@@ -194,6 +194,7 @@ jobs:
         find -name "*manifest*" | xargs -i mv -f {} packages
         find -name "*vmlinuz*" | xargs -i mv -f {} packages
         find -name "*esxi.vmdk*" | xargs -i mv -f {} packages
+        find -name "*Image*" | xargs -i mv -f {} packages
         find -name "*rootfs-squashfs*" | xargs -i mv -f {} packages
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
