@@ -12,10 +12,10 @@ name: 编译OpenWrt固件
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'build-openwrt'
-        required: true
-        default: '编译OpenWrt固件'
+      ssh:
+        description: 'SSH Actions'
+        required: false
+        default: 'ssh actions'
 
 
 #编辑任意指定文件触发开始编译（现在是修改根目录的'开启编译'触发编译）
@@ -51,7 +51,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Project_xiaomi_ac2100]  #[Lede_x86_64,Lede_redmi_ac2100,Lede_newifi_d2,Lede_nanopi_r2s,Lede_phicomm_k2p,Lienol_x86_64,Lienol_phicomm_k2p,Lienol_phicomm_k3,Project_x86_64,Project_newifi_d2,Project_phicomm_k3,Project_nanopi_r2s,Project_xiaomi_ac2100,Project_xiaomi_mir3g]
+        target: [Project_x86_64]  
+
+     # [Lede_nanopi_r2s,Lede_newifi_d2,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_x86_64,Lede_xiaomi_r3pro,Lede_xiaoyu_c5]
+     # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64]
+     # [Project_nanopi_r2s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_x86_64,Project_xiaomi_ac2100,Project_xiaomi_mir3g]
+
 
     steps:
     - name: 准备结束
@@ -142,7 +147,7 @@ jobs:
     
     - name: SSH远程连接服务器配置固件
       uses: P3TERX/ssh2actions@v1.0.0
-      if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
+      if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
 
     - name: 下载软件包
       id: package
