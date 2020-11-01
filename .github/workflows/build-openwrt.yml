@@ -56,11 +56,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Project_x86_64]  
+        target: [Project_nanopi_r2s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_x86_64,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5]  #[Project_x86_64]  
 
      # [Lede_nanopi_r2s,Lede_newifi_d2,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_x86_64,Lede_xiaomi_r3pro,Lede_xiaoyu_c5]
      # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64]
-     # [Project_nanopi_r2s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_x86_64,Project_xiaomi_ac2100,Project_xiaomi_mir3g]
+     # [Project_nanopi_r2s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_x86_64,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5]
 
 
     steps:
@@ -96,11 +96,17 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        docker rmi $(docker images -q)
+        sudo -E apt-get remove -y --purge azure-cli ghc zulu* hhvm llvm* firefox google* dotnet* powershell mysql* php* mssql-tools msodbcsql17 android*
+        sudo -E apt-get update -y
+        sudo -E apt-get full-upgrade -y
+        sudo -E apt-get install -y build-essential asciidoc binutils bzip2 coreutils gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-8 gcc++-8 gcc-8-multilib g++-8-multilib p7zip p7zip-full msmtp libssl-dev texinfo libreadline-dev libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint ccache curl wget vim nano python python3 python-pip python3-pip python-ply python3-ply haveged lrzsz device-tree-compiler scons antlr3 gperf ecj fastjar re2c xz-utils tar
+        for i in $(ls /usr/bin/*-8); do sudo -E ln -sf $i ${i%%-8*}; done 
+        sudo -E ln -sf /usr/include/asm-generic /usr/include/asm
+        sudo -E apt-get autoremove -y --purge
+        sudo -E apt-get clean -y
+        sudo -E swapoff -a
+        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc /swapfile
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
