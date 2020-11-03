@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: 清除老旧固件
     steps:
       - name: Delete workflow runs
         uses: ActionsRML/delete-workflow-runs@main
