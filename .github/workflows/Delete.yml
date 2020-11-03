@@ -8,7 +8,7 @@ on:
         default: 3
 
 jobs:
-  del_runs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Delete workflow runs
