@@ -14,4 +14,4 @@ rm -rf package/ctcgfw/luci-theme-argonv3
 rm -rf ./package/lean/luci-theme-argon && git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon  #新的argon主题
 rm -rf ./package/ctcgfw/luci-app-argon-config && git clone https://github.com/jerrykuku/luci-app-argon-config package/lean/luci-app-argon-config  #新的argon主题设置
 
-git clone https://github.com/esirplayground/luci-app-poweroff.git package/diy/uci-app-poweroff  #关机（增加关机功能）
+git clone https://github.com/esirplayground/luci-app-poweroff.git package/lean/uci-app-poweroff  #关机（增加关机功能）
