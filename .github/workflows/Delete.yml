@@ -1,4 +1,4 @@
-name: 清除老旧固件
+name: Delete old workflow runs
 on:
   workflow_dispatch:
     inputs:
@@ -6,14 +6,19 @@ on:
         description: 'Number of days.'
         required: true
         default: 2
+      minimum_runs:
+        description: 'The minimum runs to keep for each workflow.'
+        required: true
+        default: 1
 
 jobs:
-  build:
+  del_runs:
     runs-on: ubuntu-latest
-    name: 清除老旧固件
     steps:
       - name: Delete workflow runs
         uses: ActionsRML/delete-workflow-runs@main
         with:
+          token: ${{ secrets.AUTH_PAT }}
           repository: ${{ github.repository }}
           retain_days: ${{ github.event.inputs.days }}
+          keep_minimum_runs: ${{ github.event.inputs.minimum_runs }}
