@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
@@ -12,7 +12,7 @@ git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/diy/lu
 git clone https://github.com/garypang13/luci-app-eqos.git package/diy/luci-app-eqos  #内网IP限速工具
 git clone https://github.com/jerrykuku/node-request.git package/diy/node-request  #京东签到依赖
 git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git package/diy/luci-app-jd-dailybonus  #京东签到
-git clone https://github.com/esirplayground/luci-app-poweroff.git package/diy/uci-app-poweroff  #关机（增加关机功能）
+git clone https://github.com/esirplayground/luci-app-poweroff.git package/diy/luci-app-poweroff  #关机（增加关机功能）
 
 #增加LEDE的ShadowSocksR Plus+出国软件 (源码自带passwall出国软件)
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
@@ -28,9 +28,4 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks package
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2 package/diy/redsocks2
 
 rm -rf ./package/lean/luci-theme-argon && git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon  #新的argon主题
-git clone https://github.com/jerrykuku/luci-app-argon-config package/lean/luci-app-argon-config  #argon主题设置（在固件的系统里面）
-
-# K3屏幕
-git clone https://github.com/lwz322/luci-app-k3screenctrl.git package/k3/luci-app-k3screenctrl
-rm -rf ./package/lean/k3screenctrl && git clone https://github.com/lwz322/k3screenctrl.git package/k3/k3screenctrl
-git clone https://github.com/lwz322/k3screenctrl_build.git package/k3/k3screenctrl_build
+git clone https://github.com/jerrykuku/luci-app-argon-config package/lean/luci-app-argon-config  #argon主题设置（编译时候选上,在固件的‘系统’里面）
