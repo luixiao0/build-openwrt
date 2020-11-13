@@ -147,8 +147,9 @@ jobs:
           /bin/bash "build/${{matrix.target}}/$DIY_P2_SH"
         )
         fi
-         mv build/${{matrix.target}}/$CONFIG_FILE .config
+        mv build/${{matrix.target}}/$CONFIG_FILE .config
         make defconfig
+        chmod -R 755 ./    
     
     - name: SSH远程连接服务器配置固件
       uses: P3TERX/ssh2actions@v1.0.0
