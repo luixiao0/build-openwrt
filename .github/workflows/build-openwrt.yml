@@ -37,7 +37,7 @@ on:
 
 
 #点☆Star触发开始编译
-  watch:
+#  watch:
 #    types: started
 
 
