@@ -257,6 +257,12 @@ jobs:
             🌴 链接有效期为7天，无需注册直接下载 🐤
         files: ${{ env.FIRMWARE }}/*
 
+    - name: 删除在github空间的老固件
+      uses: ActionsRML/delete-workflow-runs@main
+      with:
+        retain_days: 0
+        keep_minimum_runs: 3    #保留多少个固件不删除
+    
     - name: 删除自动发布的老固件
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
