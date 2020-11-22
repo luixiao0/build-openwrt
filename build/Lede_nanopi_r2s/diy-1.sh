@@ -6,19 +6,28 @@
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
 #添加自定义插件链接（自己想要什么就github里面搜索然后添加）
-git clone https://github.com/rosywrt/luci-theme-rosy.git package/lean/luci-theme-rosy  #主题-rosy
-git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/lean/luci-theme-edge  #主题-edge
-git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom.git package/lean/luci-theme-infinityfreedom  #透明主题
-git clone -b master https://github.com/vernesong/OpenClash.git package/lean/luci-app-openclash  #openclash出国软件
-git clone https://github.com/frainzy1477/luci-app-clash.git package/lean/luci-app-clash  #clash出国软件
-git clone https://github.com/tty228/luci-app-serverchan.git package/lean/luci-app-serverchan  #微信推送
-git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/lean/luci-app-smartdns  #smartdns DNS加速
-git clone https://github.com/garypang13/luci-app-eqos.git package/lean/luci-app-eqos  #内网IP限速工具
-git clone https://github.com/jerrykuku/node-request.git package/lean/node-request  #京东签到依赖
-git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git package/lean/luci-app-jd-dailybonus  #京东签到
-svn co https://github.com/xiaorouji/openwrt-package/trunk/lienol/luci-app-passwall package/lean/luci-app-passwall  #passwall出国软件
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package package/lean/package  #passwall出国软件配套
-git clone https://github.com/esirplayground/luci-app-poweroff.git package/lean/luci-app-poweroff  #关机（增加关机功能）
+luci-theme-rosy  #主题-rosy
+luci-theme-edge  #主题-edge
+luci-theme-opentomcat #主题-opentomcat
+luci-theme-opentopd #主题-opentopd
+luci-theme-rosy #主题-rosy
+luci-theme-infinityfreedom  #透明主题
+luci-app-openclash  #openclash 出国软件
+luci-app-clash  #clash 出国软件
+luci-app-serverchan  #微信推送
+luci-app-eqos  #内网控速 内网IP限速工具
+luci-app-jd-dailybonus  #京东签到
+luci-app-passwall  #passwall 出国软件
+luci-app-poweroff  #关机（增加关机功能）
+luci-theme-argon  #新的argon主题
+luci-app-argon-config  #argon主题设置（编译时候选上,在固件的‘系统’里面）
+luci-app-k3screenctrl #k3屏幕，k3路由器专用
+luci-app-koolproxyR #广告过滤大师 plus+  慎用，不懂的话，打开就没网络了
+luci-app-oaf #应用过滤 该模块只工作在路由模式， 旁路模式、桥模式不生效
+luci-app-ssr-plus #shadowsocksR Puls+  出国软件
+luci-app-vssr #Hello World 也叫彩旗飘飘  出国软件
+luci-app-gost #GO语言实现的安全隧道
+luci-app-smartdns  #smartdns DNS加速
+luci-app-adguardhome #adguardhome
+luci-app-dockerman #docker容器
 
-rm -rf ./package/lean/luci-theme-argon && git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon  #新的argon主题
-git clone https://github.com/jerrykuku/luci-app-argon-config package/lean/luci-app-argon-config  #argon主题设置（编译时候选上,在固件的‘系统’里面）
