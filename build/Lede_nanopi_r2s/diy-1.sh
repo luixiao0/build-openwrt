@@ -27,6 +27,7 @@
 #luci-app-ssr-plus  #shadowsocksR Puls+  出国软件
 #luci-app-vssr  #Hello World 也叫彩旗飘飘  出国软件
 #luci-app-gost  #GO语言实现的安全隧道
+#luci-app-aliddns  #阿里DDNS
 #luci-app-smartdns  #smartdns DNS加速
 #luci-app-adguardhome  #adguardhome
 #luci-app-dockerman  #docker容器
