@@ -2,10 +2,12 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
-# 使用源码自带ShadowSocksR Plus+出国软件
-#sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
+# 插件包地址
+#https://github.com/281677160/openwrt-package
 
-#添加自定义插件链接（自己想要什么就github里面搜索然后添加）
+#源码已添加一下插件，所有插件都来自各插件的各位大神源码
+#最好不要自己胡乱的添加别人的插件包，插件相同添加有增加编译失败风险
+
 #luci-theme-rosy  #主题-rosy
 #luci-theme-edge  #主题-edge
 #luci-theme-opentomcat  #主题-opentomcat
