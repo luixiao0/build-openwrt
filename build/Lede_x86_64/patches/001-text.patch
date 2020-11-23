@@ -1,6 +1,8 @@
---- package/base-files/files/bin/config_generate	2020-09-13 15:27:22.000000000 +0000
-+++ package/base-files/files/bin/config_generate	2020-09-13 15:29:19.000000000 +0000
-@@ -110,6 +110,9 @@
+diff --git a/package/base-files/files/bin/config_generate b/package/base-files/files/bin/config_generate
+index 0939306..446ade3 100644
+--- a/package/base-files/files/bin/config_generate
++++ b/package/base-files/files/bin/config_generate
+@@ -110,6 +110,9 @@ generate_network() {
  				set network.$1.proto='static'
  				set network.$1.ipaddr='$ipad'
  				set network.$1.netmask='$netm'
