@@ -60,15 +60,15 @@ jobs:
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v2  
+      uses: actions/checkout@v2
     
     - name: 删除在github空间的老固件
       uses: ActionsRML/delete-workflow-runs@v2-dev
       with:
         token: ${{ github.token }}
-        repository: ${{ github.repository }}       
+        repository: ${{ github.repository }}
         retain_days: 1
-        keep_minimum_runs: 6    #保留多少个固件不删除 
+        keep_minimum_runs: 6    #保留多少个固件不删除
     
     - name: 删除自动发布的老固件
       uses: dev-drprasad/delete-older-releases@v0.1.0
