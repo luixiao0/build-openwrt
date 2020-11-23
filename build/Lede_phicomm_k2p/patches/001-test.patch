@@ -1,6 +1,8 @@
---- target/linux/ramips/image/mt7621.mk	2020-09-14 12:01:50.000000000 +0000
-+++ target/linux/ramips/image/mt7621.mk	2020-09-14 12:04:36.000000000 +0000
-@@ -801,7 +801,7 @@
+diff --git a/target/linux/ramips/image/mt7621.mk b/target/linux/ramips/image/mt7621.mk
+index 4804103..e440464 100644
+--- a/target/linux/ramips/image/mt7621.mk
++++ b/target/linux/ramips/image/mt7621.mk
+@@ -813,7 +813,7 @@ endef
  TARGET_DEVICES += netis_wf2881
  
  define Device/phicomm_k2p
