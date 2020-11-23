@@ -13,14 +13,17 @@ on:
   workflow_dispatch:
     inputs:
       ssh:
-        description: 'build-openwrt'
+        description: 'SSH远程'
         required: false
         default: 'ssh actions'
-
-#使用专用按钮启动的时候把绿色按钮上面的ssh actions改成ssh可以开启SSH远程连接
-#这个连接会把选择的所有机型都一起开启SSH连接的,这个为一次性开启
-#下次编译的时候不修改的话就不会开启SSH远程的，除非你在build文件夹的
-#对应机型‘settings.ini’那里开启了SSH连接，所以要注意区分
+      wxtz:
+        description: '微信通知'
+        required: false
+        default: 'wxtz actions'
+      release:
+        description: '发布固件'
+        required: false
+        default: 'release actions'
 
 
 #编辑任意指定文件触发开始编译（现在是修改根目录的'开启编译'触发编译）
@@ -49,14 +52,14 @@ env:
 
 jobs: 
   build:
-    runs-on: ubuntu-18.04
+    runs-on: Ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     name: 编译 ${{matrix.target}}
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_x86_64]  
+        target: [Lede_x86_64]  #[Lede_nanopi_r2s,Lede_newifi_d2,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_x86_64,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64,Project_nanopi_r2s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_x86_64,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5]  
 
      # [Lede_nanopi_r2s,Lede_newifi_d2,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_x86_64,Lede_xiaomi_r3pro,Lede_xiaoyu_c5]
      # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64]
@@ -65,8 +68,25 @@ jobs:
 
     steps:
     - name: 准备结束
-      uses: actions/checkout@v2
- 
+      uses: actions/checkout@v2  
+    
+    - name: 删除在github空间的老固件
+      uses: ActionsRML/delete-workflow-runs@v2-dev
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}       
+        retain_days: 1
+        keep_minimum_runs: 6    #保留多少个固件不删除 
+    
+    - name: 删除自动发布的老固件
+      uses: dev-drprasad/delete-older-releases@v0.1.0
+      if: env.UPLOAD_RELEASE == 'true' || (github.event.inputs.release == 'release' && github.event.inputs.release  != 'false')
+      with:
+        keep_latest: 6         #保留多少个发布不删除
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
+    
     - name: 检测脚本设置
       run: |
         source "${GITHUB_WORKSPACE}/build/${{matrix.target}}/settings.ini"
@@ -86,7 +106,7 @@ jobs:
     
     - name: 微信通知
       uses: emon100/Action-Serverchan@v2
-      if: env.SERVERCHAN_SCKEY == 'true'
+      if: env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 主人${{matrix.target}}编译开始啦
@@ -97,10 +117,10 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -qq update -y
-        sudo -E apt-get -qq install -y build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler ccache xsltproc rename antlr3 gperf wget curl swig rsync libtinfo5
-        sudo -E apt-get -qq autoremove -y --purge
-        sudo -E apt-get -qq clean -y
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq -y install build-essential asciidoc binutils bzip2 gawk gettext git libc6-dev libncurses5 libtinfo-dev libtinfo5 ncurses-doc libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
@@ -111,49 +131,50 @@ jobs:
         df -hT $PWD
         git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        rm -rf package/ctcgfw/luci-app-argon-config
+        rm -rf package/lienol/luci-app-timecontrol
+        rm -rf package/ctcgfw/luci-theme-argonv3
+        rm -rf package/lean/luci-app-netdata
+        rm -rf package/lean/luci-theme-argon
+        rm -rf package/lean/k3screenctrl
+        
 
     - name: 加载源,patch补丁和自定义设置
       run: |
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         cd openwrt
-        if [ -n "$(ls -A "build/${{matrix.target}}/patches" 2>/dev/null)" ]; then
-        (
-          find "build/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p0 --forward" || true
-        )
-        fi
         if [ -f "build/${{matrix.target}}/$DIY_P1_SH" ]; then
-        (
           chmod +x build/${{matrix.target}}/$DIY_P1_SH
           /bin/bash "build/${{matrix.target}}/$DIY_P1_SH"
-        )
         fi
-        ./scripts/feeds clean
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
-        if [ -n "$(ls -A "build/${{matrix.target}}/patch-p1" 2>/dev/null)" ]; then
-        (
-          find "build/${{matrix.target}}/patch-p1" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward"
-        )
+        git clone -b $REPO_BRANCH --single-branch https://github.com/281677160/openwrt-package package/danshui
+        ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && ./scripts/feeds install -a
+        if [ -f "build/${{matrix.target}}/$DIY_P2_SH" ]; then
+          chmod +x build/${{matrix.target}}/$DIY_P2_SH
+          /bin/bash "build/${{matrix.target}}/$DIY_P2_SH"
+        fi
+        if [ -n "$(ls -A "build/${{matrix.target}}/patches" 2>/dev/null)" ]; then
+          find "build/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch"
         fi
         if [ -n "$(ls -A "build/${{matrix.target}}/files" 2>/dev/null)" ]; then
          cp -rf build/${{matrix.target}}/files files
+         chmod -R 755 build/${{matrix.target}}/files/* ./
         fi
         if [ -n "$(ls -A "build/${{matrix.target}}/diy" 2>/dev/null)" ]; then
          cp -Rf build/${{matrix.target}}/diy/* ./
-        fi        
-        if [ -f "build/${{matrix.target}}/$DIY_P2_SH" ]; then
-        (
-          chmod +x build/${{matrix.target}}/$DIY_P2_SH
-          /bin/bash "build/${{matrix.target}}/$DIY_P2_SH"
-        )
         fi
+        [ -e build/${{matrix.target}}/$CONFIG_FILE ]
         mv build/${{matrix.target}}/$CONFIG_FILE .config
         make defconfig
-        chmod -R 755 ./    
-    
+        git clone https://github.com/openwrt-dev/po2lmo.git
+        pushd po2lmo
+        make && sudo make install
+        popd
+ 
     - name: SSH远程连接服务器配置固件
       uses: P3TERX/ssh2actions@v1.0.0
-      if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
 
     - name: 下载软件包
       id: package
@@ -169,7 +190,7 @@ jobs:
         cd openwrt
         echo -e "$(($(nproc)+1)) thread compile"
         make -j$(($(nproc)+1)) || make -j1 V=s
-        echo "::set-output name=status::success"     
+        echo "::set-output name=status::success"
         echo "date=$(date "+%Y-%m-%d %H.%M")" >> $GITHUB_ENV
         echo "date1=$(date "+%Y年%m月%d号-%H点%M分")" >> $GITHUB_ENV
         echo "date2=$(date "+%Y%m%d-%H%M")" >> $GITHUB_ENV
@@ -197,6 +218,7 @@ jobs:
         find -name "*esxi.vmdk*" | xargs -i mv -f {} packages
         find -name "*Image*" | xargs -i mv -f {} packages
         find -name "*rootfs-squashfs*" | xargs -i mv -f {} packages
+        find -name "*squashfs-rootfs*" | xargs -i mv -f {} packages
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
@@ -221,9 +243,11 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
         echo "::warning file=奶牛快传（${{matrix.target}}）::$(cat cowtransfer.log | grep https)"
+        echo "COWTRANSFER_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
         echo "::warning file=WeTransfer（${{matrix.target}}）::$(cat wetransfer.log | grep https)"
+        echo "WETRANSFER_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
     
     - name: 提取发布用的「奶牛快传」跟「WeTransfer」的链接
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
@@ -233,20 +257,20 @@ jobs:
         echo "COWTRANSFER_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV 
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "WETRANSFER_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV 
+        echo "WETRANSFER_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV     
     
     - name: 自动发布固件
       uses: softprops/action-gh-release@v1
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' || (github.event.inputs.release == 'release' && github.event.inputs.release  != 'false')
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
       with:
         name: ${{ env.date1 }} 「 ${{ env.WXFB_MESSAGE }} 」固件
         tag_name: ${{ env.date2 }}
-        body: |            
-            ☆  源码 : ${{ env.REPO_URL }}
-            ☆  分支 : ${{ env.REPO_BRANCH }}
-            ☆  感谢源码作者无私分享！
+        body: |
+            ☆  源码 : ${{ env.REPO_URL }}  <br>
+            ☆  分支 : ${{ env.REPO_BRANCH }}  <br>
+            ☆  感谢源码作者无私分享！ <br>
             
             🎉 [ ${{ env.WXFB_MESSAGE }} ]固件下载 ✨
             
@@ -256,25 +280,10 @@ jobs:
             
             🌴 链接有效期为7天，无需注册直接下载 🐤
         files: ${{ env.FIRMWARE }}/*
-
-    - name: 删除在github空间的老固件
-      uses: ActionsRML/delete-workflow-runs@main
-      with:
-        retain_days: 0
-        keep_minimum_runs: 3    #保留多少个固件不删除
-    
-    - name: 删除自动发布的老固件
-      uses: dev-drprasad/delete-older-releases@v0.1.0
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
-      with:
-        keep_latest: 12         #保留多少个发布不删除
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: 微信通知
       uses: emon100/Action-Serverchan@v2
-      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 恭喜主人${{matrix.target}}固件编译成功！
