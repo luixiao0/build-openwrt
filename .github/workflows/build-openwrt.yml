@@ -68,7 +68,6 @@ jobs:
         token: ${{ github.token }}
         repository: ${{ github.repository }}       
         retain_days: 0.1
-        keep_minimum_runs: 0
     
     - name: 删除自动发布的老固件
       uses: dev-drprasad/delete-older-releases@v0.1.0
