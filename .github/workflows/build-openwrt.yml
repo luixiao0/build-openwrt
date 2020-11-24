@@ -65,7 +65,7 @@ jobs:
     - name: 删除在github空间的老固件
       uses: ActionsRML/delete-workflow-runs@v2-dev
       with:
-        token: ${{ secrets.REPO_TOKEN }}
+        token: ${{ github.repository }}
         repository: ${{ github.repository }}
         retain_days: 1
         keep_minimum_runs: 6    #保留多少个固件不删除
@@ -77,7 +77,7 @@ jobs:
         keep_latest: 6         #保留多少个发布不删除
         delete_tags: true
       env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}    
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
     
     - name: 检测脚本设置
       run: |
