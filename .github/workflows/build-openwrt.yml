@@ -74,7 +74,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.UPLOAD_RELEASE == 'true' || (github.event.inputs.release == 'release' && github.event.inputs.release  != 'false')
       with:
-        keep_latest: 8         #保留多少个发布不删除,保留的数值不能低于你一次所编译机型的数值
+        keep_latest: 8         #保留多少个发布不删除,最少保留一个
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
