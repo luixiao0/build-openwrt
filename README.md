@@ -7,8 +7,6 @@
 #### [lede源码的luci-app-dockerman跟luci-app-docker是不一样的，都是docker-ce容器，luci-app-dockerman是我后加的，两个插件不能同时编译，同时编译会失败，luci-app-docker是源码自带的，你们可以编译出来对比下那个好用就用那个好了，](#/README.md)
 #
 #
-### `删除老固件和老发布的说明`《[请大家一定要去了解下，要不然怕会给你造成麻烦](https://github.com/danshui-git/shuoming/blob/master/shanchu.md)》
-#
 #
 - [大家如果编译的时候没乱搞而又出现编译错误的，要善于在各个作者源码的‘Issues’找答案或者提问](#/README.md)
 
