@@ -62,23 +62,6 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@v2
     
-    - name: 删除在github空间的老固件
-      uses: Mattraks/delete-workflow-runs@main
-      with:
-        token: ${{ github.token }}
-        repository: ${{ github.repository }}       
-        retain_days: 0.1
-        keep_minimum_runs: 1
-    
-    - name: 删除自动发布的老固件
-      uses: dev-drprasad/delete-older-releases@v0.1.0
-      if: env.UPLOAD_RELEASE == 'true' || (github.event.inputs.release == 'release' && github.event.inputs.release  != 'false')
-      with:
-        keep_latest: 8         #保留多少个发布不删除,最少保留一个
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
-    
     - name: 检测脚本设置
       run: |
         source "${GITHUB_WORKSPACE}/build/${{matrix.target}}/settings.ini"
