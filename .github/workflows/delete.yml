@@ -9,7 +9,7 @@
 #
 
 
-name: delete-workflow-runs
+name: delete-runs
 on:
   workflow_dispatch:
 
