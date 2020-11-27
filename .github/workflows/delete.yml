@@ -10,7 +10,7 @@
 
 
 
-name: delete-workflow-runs
+name: delete-workflow
 on:
   workflow_dispatch:
     inputs:
