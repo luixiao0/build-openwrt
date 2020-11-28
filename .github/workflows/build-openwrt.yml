@@ -15,15 +15,15 @@ on:
       ssh:
         description: 'SSH远程'
         required: false
-        default: 'ssh actions'
+        default: 'ssh-actions'
       wxtz:
         description: '微信通知'
         required: false
-        default: 'wxtz actions'
+        default: 'wxtz-actions'
       release:
         description: '发布固件'
         required: false
-        default: 'release actions'
+        default: 'release-actions'
 
 
 #定时触发开始编译(开启定时编译请先确认SSH处在关闭状态,要不然SSH没人管,会卡SSH编译失败)
