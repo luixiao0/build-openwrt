@@ -1,14 +1,13 @@
-diff --git a/package/base-files/files/bin/config_generate b/package/base-files/files/bin/config_generate
-index 0939306..446ade3 100644
---- a/package/base-files/files/bin/config_generate
-+++ b/package/base-files/files/bin/config_generate
-@@ -110,6 +110,9 @@ generate_network() {
- 				set network.$1.proto='static'
- 				set network.$1.ipaddr='$ipad'
- 				set network.$1.netmask='$netm'
-+				set network.$1.gateway='192.168.2.1'
-+				set network.$1.dns='114.114.114.114 223.5.5.5'
-+				set network.$1.broadcast='192.168.2.225'
- 			EOF
- 			[ -e /proc/sys/net/ipv6 ] && uci set network.$1.ip6assign='60'
- 		;;
+diff --git a/target/linux/ar71xx/image/tiny-tp-link.mk b/target/linux/ar71xx/image/tiny-tp-link.mk
+index 5874808..a342108 100644
+--- a/target/linux/ar71xx/image/tiny-tp-link.mk
++++ b/target/linux/ar71xx/image/tiny-tp-link.mk
+@@ -340,7 +340,7 @@ endef
+ TARGET_DEVICES += tl-wr1041n-v2
+ 
+ define Device/tl-wr703n-v1
+-  $(Device/tplink-4mlzma)
++  $(Device/tplink-16mlzma)
+   DEVICE_TITLE := TP-LINK TL-WR703N v1
+   DEVICE_PACKAGES := kmod-usb2
+   BOARDNAME := TL-WR703N
