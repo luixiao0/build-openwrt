@@ -107,12 +107,14 @@ jobs:
         git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
-        rm -rf package/ctcgfw/luci-app-argon-config
-        rm -rf package/lienol/luci-app-timecontrol
-        rm -rf package/ctcgfw/luci-theme-argonv3
-        rm -rf package/lean/luci-app-netdata
-        rm -rf package/lean/luci-theme-argon
-        rm -rf package/lean/k3screenctrl
+        if [ build/${{matrix.target}} != build/openwrt ]; then
+           rm -rf package/ctcgfw/luci-app-argon-config
+           rm -rf package/lienol/luci-app-timecontrol
+           rm -rf package/ctcgfw/luci-theme-argonv3
+           rm -rf package/lean/luci-app-netdata
+           rm -rf package/lean/luci-theme-argon
+           rm -rf package/lean/k3screenctrl
+        fi
         
 
     - name: 加载源,patch补丁和自定义设置
@@ -123,7 +125,9 @@ jobs:
           chmod +x build/${{matrix.target}}/$DIY_P1_SH
           /bin/bash "build/${{matrix.target}}/$DIY_P1_SH"
         fi
-        git clone -b $REPO_BRANCH --single-branch https://github.com/281677160/openwrt-package package/danshui
+        if [ build/${{matrix.target}} != build/openwrt ]; then
+          git clone -b $REPO_BRANCH --single-branch https://github.com/281677160/openwrt-package package/danshui
+        fi
         ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && ./scripts/feeds install -a
         if [ -f "build/${{matrix.target}}/$DIY_P2_SH" ]; then
           chmod +x build/${{matrix.target}}/$DIY_P2_SH
@@ -147,8 +151,8 @@ jobs:
         make && sudo make install
         popd
  
-    - name: SSH远程连接服务器配置固件
-      uses: P3TERX/ssh2actions@v1.0.0
+    - name: SSH远程连接（运行到此必须刷新一次网页再等待代码展开,不能频繁刷新）
+      uses: garypang13/debugger-action@master
       if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
 
     - name: 下载软件包
