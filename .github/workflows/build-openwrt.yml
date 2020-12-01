@@ -56,7 +56,7 @@ jobs:
      # [Lede_nanopi_r2s,Lede_newifi_d2,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wr703n_v1,Lede_x86_64,Lede_xiaomi_r3pro,Lede_xiaoyu_c5]
      # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64]
      # [Project_nanopi_r2s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_x86_64,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5]
-     # [openwrt] 可修改成你喜欢的任意源码链接，纯源码不经任何修改的，上面那些机型是经过我增加插件的
+     # [openwrt] 在对应文件夹里，可修改成你喜欢的任意源码链接，纯源码不经任何修改的，上面那些机型是经过我增加插件的
 
 
     steps:
