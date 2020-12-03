@@ -18,3 +18,17 @@ index 8e38759..58e3618 100644
  		<tr><td width="33%"><%:Local Time%></td><td id="localtime">-</td></tr>
  		<tr><td width="33%"><%:Uptime%></td><td id="uptime">-</td></tr>
  		<tr><td width="33%"><%:Load Average%></td><td id="loadavg">-</td></tr>
+
+diff --git a/package/lean/autocore/Makefile b/package/lean/autocore/Makefile
+index ee7baf8..436dfb7 100644
+--- a/package/lean/autocore/Makefile
++++ b/package/lean/autocore/Makefile
+@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
+ define Package/autocore-arm
+   TITLE:=Arm auto core loadbalance script.
+   MAINTAINER:=CN_SZTL
+-  DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_mvebu||TARGET_ipq40xx||TARGET_ipq806x||TARGET_rockchip) \
++  DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_mvebu||TARGET_ipq40xx||TARGET_ipq806x||TARGET_rockchip||TARGET_armvirt) \
+     +TARGET_bcm53xx:nvram \
+     +TARGET_ipq40xx:lm-sensors
+   VARIANT:=arm
