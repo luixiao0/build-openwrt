@@ -1,5 +1,7 @@
 # Actions-OpenWrt
 
+## 【[Telegram](t.me/github_openwrt)】交流群
+
 ### - 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
 - 写入emmc方法在插件包里， 【[插件包](https://github.com/281677160/openwrt-package)】
 - 自动打包是来自【[tuanqing大神](https://github.com/tuanqing/mknop)】作品，根据网友测试他的NTFS格式优盘挂载热拔插有问题，已修复，还有就是没有CPU频率跟温度显示，我增加了，可是还没测试，我自己没盒子，老叫同一个人帮忙测试也不是办法，大家在使用的时候发现有问题可以告诉我，我尝试修改下
