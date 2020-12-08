@@ -140,7 +140,7 @@ jobs:
         fi
         if [ -n "$(ls -A "build/${{matrix.target}}/files" 2>/dev/null)" ]; then
          cp -rf build/${{matrix.target}}/files files
-         chmod -R 755 build/${{matrix.target}}/files/* ./
+         chmod -R 777 build/${{matrix.target}}/files/* ./
         fi
         if [ -n "$(ls -A "build/${{matrix.target}}/diy" 2>/dev/null)" ]; then
          cp -Rf build/${{matrix.target}}/diy/* ./
