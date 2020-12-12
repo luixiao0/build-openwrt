@@ -129,6 +129,7 @@ jobs:
         fi
         if [ build/${{matrix.target}} != build/openwrt ]; then
           git clone -b $REPO_BRANCH --single-branch https://github.com/281677160/openwrt-package package/danshui
+          git clone -b adg --single-branch https://github.com/281677160/openwrt-package package/danshui
         fi
         ./scripts/feeds clean && ./scripts/feeds update -a && ./scripts/feeds install -a && ./scripts/feeds install -a
         if [ -f "build/${{matrix.target}}/$DIY_P2_SH" ]; then
@@ -141,6 +142,10 @@ jobs:
         if [ -n "$(ls -A "build/${{matrix.target}}/files" 2>/dev/null)" ]; then
          cp -rf build/${{matrix.target}}/files files
          chmod -R 777 build/${{matrix.target}}/files/* ./
+        fi
+        if [ -n "$(ls -A "build/${{matrix.target}}/files/usr/bin/AdGuardHome" 2>/dev/null)" ]; then
+         cp -rf package/danshui/AdGuardHome files/usr/bin/AdGuardHome
+         chmod -R 777 files/usr/bin/AdGuardHome/AdGuardHome
         fi
         if [ -n "$(ls -A "build/${{matrix.target}}/diy" 2>/dev/null)" ]; then
          cp -Rf build/${{matrix.target}}/diy/* ./
