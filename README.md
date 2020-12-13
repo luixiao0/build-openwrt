@@ -2,7 +2,9 @@
 
 ### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 
-### - 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
+### - 2020/12/13号更新，因为有好多人说AdGuardHome更新不了内核，我把内核直接放入files文件夹了，编译好后内核直接就更新了，不需要再去点更新，还有修复了lede_r2s因为源码更新了，我丢里面的补丁不能用了，造成编译错误，还有昨天（12月12号）编译固件有增加ss/r plus的，v2/ray不能用的，还有project源码编译这些造成v2/ray跟xrsy冲突编译失败的，都不要慌，等作者修复下就好了
+
+- 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
 - 写入emmc方法在插件包里， 【[插件包](https://github.com/281677160/openwrt-package)】
 - 自动打包是来自【[tuanqing大神](https://github.com/tuanqing/mknop)】作品，根据网友测试他的NTFS格式优盘挂载热拔插有问题，已修复，还有就是没有CPU频率跟温度显示，我增加了，可是还没测试，我自己没盒子，老叫同一个人帮忙测试也不是办法，大家在使用的时候发现有问题可以告诉我，我尝试修改下
 #
