@@ -1,1 +1,0 @@
-AdGuardHome的内核文件，不需要的话就删除了，如果删除了后有需要的话，就在 files 文件夹 按 Add file 任何选择 Create new file 填写路径为 usr/bin/AdGuardHome/AdGuardHome 内容为空，然后保持就可以了
