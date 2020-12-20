@@ -144,10 +144,6 @@ jobs:
          cp -rf build/${{matrix.target}}/files files
          chmod -R 777 build/${{matrix.target}}/files/* ./
         fi
-        if [ -n "$(ls -A "build/${{matrix.target}}/files/usr/bin/AdGuardHome" 2>/dev/null)" ]; then
-         cp -rf package/adg/AdGuardHome files/usr/bin/AdGuardHome
-         chmod -R 777 files/usr/bin/AdGuardHome/AdGuardHome
-        fi
         if [ -n "$(ls -A "build/${{matrix.target}}/diy" 2>/dev/null)" ]; then
          cp -Rf build/${{matrix.target}}/diy/* ./
         fi
