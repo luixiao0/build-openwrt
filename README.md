@@ -2,7 +2,7 @@
 
 ### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 
-### - 2020/12/13号更新，因为有好多人说AdGuardHome更新不了内核，我把内核直接放入files文件夹了，编译好后内核直接就更新了，不需要再去点更新，不需要的人可以直接删除了，还有修复了lede_r2s因为源码更新了，我丢里面的补丁不能用了，造成编译错误，还有昨天（12月12号）project源码编译这些造成v2ray跟xrsy冲突编译失败的，都不要慌，等作者修复下就好了，passwall还是可以用的
+### - 2020/12/21号说明：上次把AdGuardHome的内核放进files文件夹是我欠缺考虑了，这里给大家说声抱歉，补丁文件过大造成没办法用Use this pemtlatel来拉取仓库，还有就是小闪存的机子会造成编译困扰，因为一个内核文件就差不多20mb了，所以16跟32闪存的机子不适用，还有就是arm的补丁版本很多，我也放错了，所以大家还是把这个补丁文件删除了，给大家造成困扰了，抱歉。还有就是v2/ray跟xray编译冲突造成不能编译成功的源码也全修复好了，大家记住编译出国插件的时候不要选择v2/ray就可以了，因为xray已经兼容了v2的了
 
 - 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
 - 写入emmc方法在插件包里， 【[插件包](https://github.com/281677160/openwrt-package)】
