@@ -187,7 +187,7 @@ jobs:
     - name: 打包n1、vplus、beikeyun、l1pro、s905x3固件
       run: |
         if [ -n "$(ls -A "openwrt/bin/targets/armvirt" 2>/dev/null)" ]; then
-         mv -f openwrt/bin/targets/armvirt/*/*.tar.gz reform/openwrt
+         cp openwrt/bin/targets/armvirt/*/*.tar.gz reform/openwrt
          cd reform
          sudo ./gen_openwrt -d -k latest
          devices=("phicomm-n1" "vplus" "beikeyun" "l1pro" "s905x3")
