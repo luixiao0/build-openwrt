@@ -116,6 +116,8 @@ jobs:
           rm -rf package/lean/luci-app-netdata
           rm -rf package/lean/luci-theme-argon
           rm -rf package/lean/k3screenctrl
+          rm -rf package/ntlf9t/luci-app-smartdns
+          rm -rf package/ntlf9t/smartdns
         fi
         
 
