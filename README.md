@@ -1,8 +1,8 @@
 # Actions-OpenWrt
 
-### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
+#### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 
-### - 2020/12/21号说明：上次把AdGuardHome的内核放进files文件夹是我欠缺考虑了，这里给大家说声抱歉，补丁文件过大造成没办法用Use this pemtlatel来拉取仓库，还有就是小闪存的机子会造成编译困扰，因为一个内核文件就差不多20mb了，所以16跟32闪存的机子不适用，还有就是arm的补丁版本很多，我也放错了，所以大家还是把这个补丁文件删除了，给大家造成困扰了，抱歉。还有就是v2ray跟xray编译冲突造成不能编译成功的源码也全修复好了，大家记住编译出国插件的时候不要选择v2ray就可以了，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
+#### - 2020/12/21号说明：上次把AdGuardHome的内核放进files文件夹是我欠缺考虑了，这里给大家说声抱歉，补丁文件过大造成没办法用Use this pemtlatel来拉取仓库，还有就是小闪存的机子会造成编译困扰，因为一个内核文件就差不多20mb了，所以16跟32闪存的机子不适用，还有就是arm的补丁版本很多，我也放错了，所以大家还是把这个补丁文件删除了，给大家造成困扰了，抱歉。还有就是v2ray跟xray编译冲突造成不能编译成功的源码也全修复好了，大家记住编译出国插件的时候不要选择v2ray就可以了，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
 - 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
 - 写入emmc方法在插件包里， 【[插件包](https://github.com/281677160/openwrt-package)】
@@ -42,7 +42,7 @@
 #
 - 6、`SSH远程连接服务器配置固件`《[SSH连接教程](https://github.com/danshui-git/shuoming/blob/master/3SSH%E8%BF%9E%E6%8E%A5%E8%AF%B4%E6%98%8E.md)》，SSH远程默认关闭的，需要打开的请在build文件夹里面的对应机型文件夹的‘settings.ini’设置，或者按钮启动编译的时候顺手打开
 #
-- 7、`配置固件`《[youtube大神的固件配置视频教程](https://www.youtube.com/watch?v=jEE_J6-4E3Y)》《[恩山大神xtwz整理的插件中文对照](https://www.right.com.cn/forum/thread-3682029-1-1.html)》，《[youtube大神的网卡、无线网卡配置视频教程](https://www.youtube.com/watch?v=X9v6Nd3wxkk)》，放视频在这里只是给大家了解一下怎么选择插件而已，不是叫大家对照着视频去全干了，没用的，你就看会在那里选择插件就好了。
+- 7、`配置固件`《[youtube大神的固件配置视频教程](https://www.youtube.com/watch?v=jEE_J6-4E3Y)》《[恩山大神xtwz整理的插件中文对照](https://www.right.com.cn/forum/thread-3682029-1-1.html)》，《[youtube大神的网卡、无线网卡配置视频教程](https://www.youtube.com/watch?v=X9v6Nd3wxkk)》，放视频在这里只是给大家了解一下怎么选择插件而已，不是叫大家对照着视频去全干了，没用的，你就看会什么东西在哪个位置就好了。
 #
 - 8、`完成编译，下载固件`《[固件下载教程](https://github.com/danshui-git/shuoming/blob/master/4%E5%9B%BA%E4%BB%B6%E4%B8%8B%E8%BD%BD.md)》
 #
@@ -64,9 +64,7 @@
 
 
 #
-## 2020年11月27号更新，把删除老旧固件和删除老旧发布的功能独立出来了，这样比较方便控制，还有把删除老旧固件放一起的话，每次编译超过2个机型的时候有删除错误的风险导致编译不能继续进行，还有修复了24号更新的一个小错误，请大家都更新你们的脚本到最新的吧
-#
-#### [2020年11月24号更新，这次更新收罗了各大神N多插件都做成一个插件包，然后直接打入源码了，大家增加插件的时候一定要注意别胡乱的拉取别人做好的插件包，很容易造成编译失败的，还有把补丁的制作方式修改了，有使用patch来修改文件的一定要重新去看看制作补订的方法，旧补订已经不能再使用，使用旧补丁会编译失败](#/README.md)
+- [2020年11月24号更新，这次更新收罗了各大神N多插件都做成一个插件包，然后直接打入源码了，大家增加插件的时候一定要注意别胡乱的拉取别人做好的插件包，很容易造成编译失败的，还有把补丁的制作方式修改了，有使用patch来修改文件的一定要重新去看看制作补订的方法，旧补订已经不能再使用，使用旧补丁会编译失败](#/README.md)
 
 #
 #
