@@ -2,7 +2,7 @@
 
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 
-#### - 2020/12/21号说明：上次把AdGuardHome的内核放进files文件夹是我欠缺考虑了，这里给大家说声抱歉，补丁文件过大造成没办法用Use this pemtlate来拉取仓库，还有就是小闪存的机子会造成编译困扰，因为一个内核文件就差不多20mb了，所以16跟32闪存的机子不适用，还有就是arm的补丁版本很多，我也放错了，所以大家还是把这个补丁文件删除了，给大家造成困扰了，抱歉。还有就是v2ray跟xray编译冲突造成不能编译成功的源码也全修复好了，大家记住编译出国插件的时候不要选择v2ray就可以了，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
+#### - 2020/12/21号说明：上次把AdGuardHome的内核放进files文件夹是我欠缺考虑了，这里给大家说声抱歉，补丁文件过大造成没办法用Use this template来拉取仓库，还有就是小闪存的机子会造成编译困扰，因为一个内核文件就差不多20mb了，所以16跟32闪存的机子不适用，还有就是arm的补丁版本很多，我也放错了，所以大家还是把这个补丁文件删除了，给大家造成困扰了，抱歉。还有就是v2ray跟xray编译冲突造成不能编译成功的源码也全修复好了，大家记住编译出国插件的时候不要选择v2ray就可以了，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
 - 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
 - 写入emmc方法在插件包里， 【[插件包](https://github.com/281677160/openwrt-package)】
