@@ -210,7 +210,6 @@ jobs:
         mkdir config
         find openwrt/bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} config
         if [ -n "$(ls -A "openwrt/bin/targets/x86" 2>/dev/null)" ]; then
-         find openwrt/bin/targets/x86/* -name "*rootfs*" | xargs -i mv -f {} openwrt/bin/targets
          find openwrt/bin/targets/x86/* -name "*kernel*" | xargs -i mv -f {} openwrt/bin/targets
         fi
         cd openwrt/bin/targets/*/*
