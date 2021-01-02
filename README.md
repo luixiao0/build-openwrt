@@ -2,7 +2,7 @@
 
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 
-- 增加电报机器人信息推送SSH连接代码，有需要的可以去看看，网页展不开来都会信息推送的。【[电报机器人信息推送SSH连接代码说明](https://github.com/danshui-git/shuoming/blob/master/bot.md)】
+#### - 2021/1/2增加电报机器人信息推送SSH连接代码，有需要的可以去看看，网页展不开来都会信息推送的。【[电报机器人信息推送SSH连接代码说明](https://github.com/danshui-git/shuoming/blob/master/bot.md)】
 
 - 大家记住编译出国插件的时候不要选择v2ray，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
