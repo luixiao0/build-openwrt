@@ -2,14 +2,14 @@
 
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 
-#### - 2020/12/21号说明：上次把AdGuardHome的内核放进files文件夹是我欠缺考虑了，这里给大家说声抱歉，补丁文件过大造成没办法用Use this template来拉取仓库，还有就是小闪存的机子会造成编译困扰，因为一个内核文件就差不多20mb了，所以16跟32闪存的机子不适用，还有就是arm的补丁版本很多，我也放错了，所以大家还是把这个补丁文件删除了，给大家造成困扰了，抱歉。还有就是v2ray跟xray编译冲突造成不能编译成功的源码也全修复好了，大家记住编译出国插件的时候不要选择v2ray就可以了，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
+#### - 大家记住编译出国插件的时候不要选择v2ray，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
 - 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好，如果要选择不自动打包好的固件请打开上传bin文件夹
 - 写入emmc方法在插件包里有说明， 【[插件包](https://github.com/281677160/openwrt-package)】
 - 自动打包是来自【[tuanqing大神](https://github.com/tuanqing/mknop)】作品，根据网友测试他的NTFS格式优盘挂载热拔插有问题，已修复，还有就是没有CPU频率跟温度显示，我增加了，可是还没测试，我自己没盒子，老叫同一个人帮忙测试也不是办法，大家在使用的时候发现有问题可以告诉我，我尝试修改下
 #
 
-- [SSH代码展开说明，如果打开了SSH远程连接的话，运行到SSH远程连接时候，在转圈圈的时候必须刷新一次网页,让它继续转圈圈，耐心等待代码展开，如果2分钟时间还没打开就再刷新一次，如果还展不开来就每分钟刷新一次，但是不能频繁刷新，因为展开是要时间的，频繁刷新就展开都给刷走了](#/README.md)
+- [SSH代码展开说明，如果打开了SSH远程连接的话，运行到SSH远程连接时候，在转圈圈的时候必须刷新一次网页,让它继续转圈圈，耐心等待代码展开，如果2分钟时间还没打开就再刷新一次，如果还展不开来就每分钟刷新一次，但是不能频繁刷新，因为展开是要时间的，频繁刷新就展开都给刷走了]。增加电报机器人信息推送SSH连接代码，有需要的可以去看看，网页展不开来都会信息推送的。【[电报机器人信息推送SSH连接代码说明](https://github.com/danshui-git/shuoming/blob/master/bot.md)】(#/README.md)
 #
 - 插件包经常更新，大家有时间就看看更新了什么没，有时候我也会在里面写些说明之类的 【[插件包](https://github.com/281677160/openwrt-package)】
 #
