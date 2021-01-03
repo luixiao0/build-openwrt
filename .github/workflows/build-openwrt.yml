@@ -121,7 +121,9 @@ jobs:
 
     - name: 加载源,patch补丁和自定义设置
       run: |
-        svn co https://github.com/281677160/N1/trunk reform
+        if [ ${{matrix.target}} = Lede_phicomm_n1 -o ${{matrix.target}} = Project_phicomm_n1 ];then
+          svn co https://github.com/281677160/N1/trunk reform
+        fi
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         cd openwrt
         if [ -f "build/${{matrix.target}}/$DIY_P1_SH" ]; then
@@ -190,9 +192,9 @@ jobs:
         name: OpenWrt_bin_${{matrix.target}}_${{ env.date }}
         path: openwrt/bin
 
-    - name: 打包n1、vplus、beikeyun、l1pro、s905x3固件
+    - name: 编译N1机型时,打包n1、vplus、beikeyun、l1pro、s905x3固件
       run: |
-        if [ -n "$(ls -A "openwrt/bin/targets/armvirt" 2>/dev/null)" ]; then
+        if [ ${{matrix.target}} = Lede_phicomm_n1 -o ${{matrix.target}} = Project_phicomm_n1 ];then
          cp openwrt/bin/targets/armvirt/*/*.tar.gz reform/openwrt
          cd reform
          sudo ./gen_openwrt -d -k latest
@@ -205,7 +207,7 @@ jobs:
            cd ../
            echo "firmware_$x=$filename" >> $GITHUB_ENV
          done
-           cd ../ && cd ../
+           cd ../../
            mv -f reform/out/*/*.img.gz openwrt/bin/targets/armvirt/*
         fi
     
