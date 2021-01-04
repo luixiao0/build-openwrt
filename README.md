@@ -86,7 +86,7 @@
 - [coolsnowwolf/lede源码](https://github.com/coolsnowwolf/lede.git)
 - [Lienol/openwrt源码](https://github.com/Lienol/openwrt.git)
 - [project-openwrt/openwrt源码](https://github.com/project-openwrt/openwrt.git)
-- [科学上网-Lienol/passwall](https://github.com/xiaorouji/openwrt-package.git)
+- [科学上网-Lienol/passwall](https://github.com/xiaorouji/openwrt-passwall.git)
 - [科学上网-luci-app-clash](https://github.com/frainzy1477/luci-app-clash.git)
 - [科学上网-luci-app-openclash](https://github.com/vernesong/OpenClash/tree/master)
 - [科学上网-ShadowSocksR Plus+](https://github.com/fw876/helloworld.git)
