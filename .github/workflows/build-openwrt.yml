@@ -31,11 +31,6 @@ on:
 #    - cron: 0 8 */5 * *
 
 
-#点☆Star触发开始编译
-#  watch:
-#    types: started
-
-
 env: 
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
   SCKEY: ${{ secrets.SCKEY }}
