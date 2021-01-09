@@ -187,7 +187,8 @@ jobs:
          cp openwrt/bin/targets/armvirt/*/*.tar.gz reform/openwrt
          cd reform
          sudo ./gen_openwrt -d -k latest
-         devices=("phicomm-n1" "vplus" "beikeyun" "l1pro" "s905x3")
+         
+         devices=("phicomm-n1" "rk3328" "s9xxx" "vplus")
          cd out
          for x in ${devices[*]}; do
            cd $x
