@@ -113,7 +113,6 @@ jobs:
           rm -rf package/lean/{luci-app-netdata,luci-theme-argon,k3screenctrl}
         fi
         
-
     - name: 加载源,patch补丁和自定义设置
       run: |
         if [ ${{matrix.target}} = Lede_phicomm_n1 -o ${{matrix.target}} = Project_phicomm_n1 ];then
