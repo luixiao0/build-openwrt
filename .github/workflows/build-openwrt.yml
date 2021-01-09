@@ -181,7 +181,7 @@ jobs:
         name: OpenWrt_bin_${{matrix.target}}_${{ env.date }}
         path: openwrt/bin
 
-    - name: 编译N1机型时,打包N1、微加云、贝壳云、我家云、S9xxx固件
+    - name: 编译N1机型时,打包（N1、微加云、贝壳云、我家云、S9xxx）固件
       run: |
         if [ ${{matrix.target}} = Lede_phicomm_n1 -o ${{matrix.target}} = Project_phicomm_n1 ];then
          cp openwrt/bin/targets/armvirt/*/*.tar.gz reform/openwrt
