@@ -1,35 +1,15 @@
 # Actions-OpenWrt
 
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
-
-#### - 2021/1/2增加电报机器人信息推送SSH连接代码，有需要的可以去看看，网页展不开来都会信息推送的。【[电报机器人信息推送SSH连接代码说明](https://github.com/danshui-git/shuoming/blob/master/bot.md)】
-
-- 大家记住编译出国插件的时候不要选择v2ray，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
-
-- 2020年12月8号更新，选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件自动打包好
-- 写入emmc方法在插件包里有说明， 【[插件包](https://github.com/281677160/openwrt-package)】
-- 自动打包是来自【[tuanqing大神](https://github.com/tuanqing/mknop)】作品，根据网友测试他的NTFS格式优盘挂载热拔插有问题，已修复，还有就是增加了CPU频率跟温度显示
 #
-
-- [SSH代码展开说明，如果打开了SSH远程连接的话，运行到SSH远程连接时候，在转圈圈的时候必须刷新一次网页,让它继续转圈圈，耐心等待代码展开，如果2分钟时间还没打开就再刷新一次，如果还展不开来就每分钟刷新一次，但是不能频繁刷新，因为展开是要时间的，频繁刷新就展开都给刷走了](#/README.md)。
+- 大家记住编译出国插件的时候不要选择v2ray，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
+#
+- 选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件已经自动打包好【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
 #
 - 插件包经常更新，大家有时间就看看更新了什么没，有时候我也会在里面写些说明之类的 【[插件包](https://github.com/281677160/openwrt-package)】
 #
-- [大家如果编译的时候没乱搞而又出现编译错误的，要善于在各个作者源码的‘Issues’找答案或者提问](#/README.md)
-
-#
 ## 编译说明：
-#
 ### - 以下的说明教程都是在我另外的仓库的，查看说明时候就跳转到另外仓库了，浏览器回退就会回来，别拉取到我说明的仓库，注意了！
-#
-#
-
-- 在没有设置好微信通知跟发布的密匙情况下，请勿打开微信通知跟发布功能，要不然直接卡在微信通知那里编译失败了。没弄好发布用的密匙打开发布功能也会卡发布那里失败的，不过发布功能在最后面，失败也不影响正常编译[[密匙获取跟使用方法](https://github.com/danshui-git/shuoming/blob/master/ms.md)]
-
-- SSH远程配置固、微信通知、自动发布固件等默认关闭，有需要的请自行到 build文件夹--对应机型文件夹--settings.ini 自行打开
-
-#
-#
 #
 - 1、`注册及登录github账号`《[注册链接](https://github.com)》
 #
