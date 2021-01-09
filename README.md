@@ -3,9 +3,9 @@
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 #
 - 大家记住编译出国插件的时候不要选择v2ray，因为xray已经兼容了v2的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
-#
+
 - 选择N1的机型文件夹编译的话，会自动编译出 N1、微加云、贝壳云、我家云、S905x3( X96 Max Plus, HK1 Box )的固件，固件已经自动打包好【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
-#
+
 - 除了编译 openwrt 机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧 【[插件包](https://github.com/281677160/openwrt-package)】
 #
 ## 编译说明：
@@ -48,10 +48,6 @@
 《[各种命令的简单介绍](https://github.com/danshui-git/shuoming/blob/master/ming.md)》
 #
 - 14、建议准备梯子一把，虽然云编译不需要梯子，不过你使用SSH连接、下载固件、打开github网页也是需要梯子比较好的（没有也行，比较卡就是）
-
-
-#
-- [2020年11月24号更新，这次更新收罗了各大神N多插件都做成一个插件包，然后直接打入源码了，大家增加插件的时候一定要注意别胡乱的拉取别人做好的插件包，很容易造成编译失败的，还有把补丁的制作方式修改了，有使用patch来修改文件的一定要重新去看看制作补订的方法，旧补订已经不能再使用，使用旧补丁会编译失败](#/README.md)
 
 #
 #
