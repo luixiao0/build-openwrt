@@ -1,3 +1,25 @@
+diff --git a/include/target.mk b/include/target.mk
+index 8185f836ec..42127a90c5 100644
+--- a/include/target.mk
++++ b/include/target.mk
+@@ -171,7 +171,7 @@ LINUX_RECONF_DIFF = $(SCRIPT_DIR)/kconfig.pl - '>' $(call __linux_confcmd,$(filt
+ ifeq ($(DUMP),1)
+   BuildTarget=$(BuildTargets/DumpCurrent)
+ 
+-  CPU_CFLAGS = -Os -pipe
++  CPU_CFLAGS = -O3 -pipe
+   ifneq ($(findstring mips,$(ARCH)),)
+     ifneq ($(findstring mips64,$(ARCH)),)
+       CPU_TYPE ?= mips64
+@@ -212,7 +212,7 @@ ifeq ($(DUMP),1)
+   endif
+   ifeq ($(ARCH),aarch64)
+     CPU_TYPE ?= generic
+-    CPU_CFLAGS_generic = -mcpu=generic
++    CPU_CFLAGS_generic = -march=armv8-a+crypto+crc -mcpu=cortex-a73.cortex-a53+crypto+crc -mtune=cortex-a73.cortex-a53
+     CPU_CFLAGS_cortex-a53 = -mcpu=cortex-a53
+   endif
+   ifeq ($(ARCH),arc)
 diff --git a/package/ctcgfw/luci-app-turboacc/Makefile b/package/ctcgfw/luci-app-turboacc/Makefile
 index 7e07b87fee..a08cc4dbe3 100644
 --- a/package/ctcgfw/luci-app-turboacc/Makefile
@@ -102,7 +124,7 @@ index 469a5c82dd..140c73ebdd 100644
          run_type = "server",
          local_addr = "::",
 diff --git a/target/linux/rockchip/armv8/config-5.4 b/target/linux/rockchip/armv8/config-5.4
-index a31875ce72..835c70dc65 100644
+index f2ff03d941..075f172ce5 100644
 --- a/target/linux/rockchip/armv8/config-5.4
 +++ b/target/linux/rockchip/armv8/config-5.4
 @@ -9,6 +9,7 @@ CONFIG_ARCH_ROCKCHIP=y
@@ -113,7 +135,7 @@ index a31875ce72..835c70dc65 100644
  # CONFIG_ARM64_ERRATUM_1165522 is not set
  # CONFIG_ARM64_ERRATUM_1286807 is not set
  # CONFIG_ARM64_ERRATUM_1418040 is not set
-@@ -115,15 +116,138 @@ CONFIG_CRC16=y
+@@ -115,16 +116,138 @@ CONFIG_CRC16=y
  CONFIG_CRC32_SLICEBY8=y
  CONFIG_CRC_T10DIF=y
  CONFIG_CROSS_MEMORY_ATTACH=y
@@ -160,7 +182,7 @@ index a31875ce72..835c70dc65 100644
 +CONFIG_CRYPTO_DEV_CCP_DD=y
 +CONFIG_CRYPTO_DEV_CCREE=y
 +CONFIG_CRYPTO_DEV_HISI_SEC=y
-+CONFIG_CRYPTO_DEV_ROCKCHIP=y
+ # CONFIG_CRYPTO_DEV_ROCKCHIP is not set
 +CONFIG_CRYPTO_DEV_SAFEXCEL=y
 +CONFIG_CRYPTO_DEV_SP_CCP=y
 +CONFIG_CRYPTO_DH=y
