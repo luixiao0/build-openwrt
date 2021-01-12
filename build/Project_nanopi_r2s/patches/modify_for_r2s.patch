@@ -1,3 +1,25 @@
+diff --git a/include/target.mk b/include/target.mk
+index 8185f836ec..42636a8288 100644
+--- a/include/target.mk
++++ b/include/target.mk
+@@ -171,7 +171,7 @@ LINUX_RECONF_DIFF = $(SCRIPT_DIR)/kconfig.pl - '>' $(call __linux_confcmd,$(filt
+ ifeq ($(DUMP),1)
+   BuildTarget=$(BuildTargets/DumpCurrent)
+ 
+-  CPU_CFLAGS = -Os -pipe
++  CPU_CFLAGS = -O3 -pipe
+   ifneq ($(findstring mips,$(ARCH)),)
+     ifneq ($(findstring mips64,$(ARCH)),)
+       CPU_TYPE ?= mips64
+@@ -212,7 +212,7 @@ ifeq ($(DUMP),1)
+   endif
+   ifeq ($(ARCH),aarch64)
+     CPU_TYPE ?= generic
+-    CPU_CFLAGS_generic = -mcpu=generic
++    CPU_CFLAGS_generic = -march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53
+     CPU_CFLAGS_cortex-a53 = -mcpu=cortex-a53
+   endif
+   ifeq ($(ARCH),arc)
 diff --git a/package/ctcgfw/luci-app-turboacc/Makefile b/package/ctcgfw/luci-app-turboacc/Makefile
 index 7e07b87fee..a08cc4dbe3 100644
 --- a/package/ctcgfw/luci-app-turboacc/Makefile
@@ -54,21 +76,6 @@ index 5c2c070e9d..3e1e8e6b66 100644
 +       option minfreq0 '816000'
 +       option maxfreq0 '1512000'
  
-diff --git a/package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gen_config.lua b/package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gen_config.lua
-index f4c8eb761f..2fe8ea8be7 100644
---- a/package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gen_config.lua
-+++ b/package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gen_config.lua
-@@ -99,8 +99,8 @@ local Xray = {
- 		} or nil
- 	} or nil
- }
--local cipher = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA"
--local cipher13 = "TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384"
-+local cipher = "ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA"
-+local cipher13 = "TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384"
- local trojan = {
- 	log_level = 3,
- 	run_type = (proto == "nat" or proto == "tcp") and "nat" or "client",
 diff --git a/package/lienol/luci-app-passwall/luasrc/model/cbi/passwall/api/gen_trojan.lua b/package/lienol/luci-app-passwall/luasrc/model/cbi/passwall/api/gen_trojan.lua
 index 7df4d3bdaf..58d6232e92 100644
 --- a/package/lienol/luci-app-passwall/luasrc/model/cbi/passwall/api/gen_trojan.lua
@@ -99,7 +106,7 @@ index 469a5c82dd..140c73ebdd 100644
          run_type = "server",
          local_addr = "::",
 diff --git a/target/linux/rockchip/armv8/config-5.4 b/target/linux/rockchip/armv8/config-5.4
-index a31875ce72..835c70dc65 100644
+index f2ff03d941..075f172ce5 100644
 --- a/target/linux/rockchip/armv8/config-5.4
 +++ b/target/linux/rockchip/armv8/config-5.4
 @@ -9,6 +9,7 @@ CONFIG_ARCH_ROCKCHIP=y
@@ -110,7 +117,7 @@ index a31875ce72..835c70dc65 100644
  # CONFIG_ARM64_ERRATUM_1165522 is not set
  # CONFIG_ARM64_ERRATUM_1286807 is not set
  # CONFIG_ARM64_ERRATUM_1418040 is not set
-@@ -115,15 +116,138 @@ CONFIG_CRC16=y
+@@ -115,16 +116,138 @@ CONFIG_CRC16=y
  CONFIG_CRC32_SLICEBY8=y
  CONFIG_CRC_T10DIF=y
  CONFIG_CROSS_MEMORY_ATTACH=y
@@ -157,7 +164,7 @@ index a31875ce72..835c70dc65 100644
 +CONFIG_CRYPTO_DEV_CCP_DD=y
 +CONFIG_CRYPTO_DEV_CCREE=y
 +CONFIG_CRYPTO_DEV_HISI_SEC=y
-+CONFIG_CRYPTO_DEV_ROCKCHIP=y
+ # CONFIG_CRYPTO_DEV_ROCKCHIP is not set
 +CONFIG_CRYPTO_DEV_SAFEXCEL=y
 +CONFIG_CRYPTO_DEV_SP_CCP=y
 +CONFIG_CRYPTO_DH=y
