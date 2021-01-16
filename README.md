@@ -2,6 +2,8 @@
 
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 #
+- 弄了一个启动视频，mp4格式，存网盘了，需要的自己下载。《[启动教程视频](https://drive.google.com/drive/folders/1WEUtVfiVtR5lyG8aX4RcDGdUPV6uMlxt?usp=sharing)》
+
 - 制作了一个一键重新拉取我编译仓库的脚本，有需要的可以去看看。《[一键重新拉取编译仓库](https://github.com/281677160/sync-forks)》
 
 - 请大家编译出国插件的时候不要选择v2ray，因为xray已经兼容了v2ray的了。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
