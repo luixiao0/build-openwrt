@@ -310,7 +310,7 @@ jobs:
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 恭喜主人${{ env.WXFB_MESSAGE }}固件编译成功！
-        desp: 我亲爱的主人您要编译的[ ${{ env.NAME2 }}${{ env.NAME1 }} ]固件成功编译完成了！
+        desp: 我亲爱的主人您要编译的[ ${{ env.NAME2 }}${{ env.NAME1 }} ]固件顺利编译完成了！
               
               
               完成时间：${{ env.date1 }}
