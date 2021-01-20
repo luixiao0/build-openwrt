@@ -6,6 +6,8 @@
 
 - 制作了一个一键重新拉取我编译仓库的脚本，有需要的可以去看看。《[一键重新拉取编译仓库](https://github.com/281677160/sync-forks)》
 
+- 请大家编译passwall、ssr plus或vssr插件的时候不要选择v2ray，因为xray已经兼容了v2ray的了，同时选择有可能出现编译错误。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
+
 - 选择Lede_phicomm_n1或Project_phicomm_n1的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）OpenWrt固件，固件已经自动打包好【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
 
 - 除了编译 openwrt 机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧 【[插件包](https://github.com/281677160/openwrt-package)】
