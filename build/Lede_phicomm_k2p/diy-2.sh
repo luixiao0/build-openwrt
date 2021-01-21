@@ -15,7 +15,7 @@ sed -i "s/OpenWrt /281677160 build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" pa
 # 小闪存机子建议不使用这个，用了这个主题后会占用0.4G了，对小闪存机子相当不友好
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
-# 如果你的K2P支持31MB闪存的请开启，默认K2P固件不能超过15.3MB的
+# 如果你的K2P支持31MB闪存的请开启，默认K2P固件不能超过15.3MB的，超过就不能刷机了
 #sed -i 's/15744k/32448k/g' target/linux/ramips/image/mt7621.mk
 
 
