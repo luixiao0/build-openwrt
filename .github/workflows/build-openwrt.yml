@@ -107,6 +107,7 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         if [ ${{matrix.target}} != openwrt ]; then
+          sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
           rm -rf package/lienol/luci-app-timecontrol
           rm -rf package/ntlf9t/{smartdns,luci-app-smartdns}
           rm -rf package/ctcgfw/{luci-app-argon-config,luci-theme-argonv3}
