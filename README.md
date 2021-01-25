@@ -2,11 +2,12 @@
 
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 #
+
+- 2021月1月25号说明，凡是在2021年2月25号13点50分之前拉取我自动附带插件的仓库的亲们，请重新拉取我的最新仓库，要不然lede源码就不带ssr plus了，因为有亲们说经过插件包后不是每次编译都最新的版本的，要经过我插件包隔一天时间更新，那就把我插件包的删除了，直接打开源码自带的链接吧，每次编译都是拉取最新的，不用等我插件包隔天才同步一次了
+
 - 弄了一个启动教程视频，mp4格式，存网盘了，需要的自己下载。《[视频下载](https://drive.google.com/drive/folders/1WEUtVfiVtR5lyG8aX4RcDGdUPV6uMlxt?usp=sharing)》
 
 - 制作了一个一键重新拉取我编译仓库的脚本，有需要的可以去看看。《[一键重新拉取编译仓库](https://github.com/281677160/sync-forks)》
-
-- 请大家编译passwall、ssr plus或vssr插件的时候不要选择v2ray，因为xray已经兼容了v2ray的了，同时选择有可能出现编译错误。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
 - 选择Lede_phicomm_n1或Project_phicomm_n1的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）OpenWrt固件，固件已经自动打包好【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
 
