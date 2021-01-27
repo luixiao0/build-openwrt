@@ -3,6 +3,7 @@
 #
 
 # 如果你的机子是32MB闪存的话,请SSH连接进去把选择机型的Phicomm K2p选择成Phicomm K2p 32M
+# 如果是16M闪存的话，请注意选择插件，固件总体积不能超过15.3MB
 
 # 修改openwrt登陆地址,把下面的192.168.2.2修改成你想要的就可以了
 sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generate
