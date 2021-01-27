@@ -2,6 +2,8 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 
+# 如果你的机子是32MB闪存的话,请SSH连接进去把选择机型的Phicomm K2p选择成Phicomm K2p 32M
+
 # 修改openwrt登陆地址,把下面的192.168.2.2修改成你想要的就可以了
 sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generate
 
@@ -13,9 +15,6 @@ sed -i "s/OpenWrt /281677160 build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" pa
 
 # 修改 argon 为默认主题,可根据你喜欢的修改成其他的（不选择那些会自动改变为默认主题的主题才有效果）(小闪存机子建议不使用)
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-
-# 如果你的K2P支持31MB闪存的请开启，默认K2P固件不能超过15.3MB的，超过就不能刷机了
-#sed -i 's/15744k/32448k/g' target/linux/ramips/image/mt7621.mk
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz-default-settings
