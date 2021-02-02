@@ -153,8 +153,6 @@ jobs:
         elif [ $REPO_URL == "https://github.com/project-openwrt/openwrt" ]; then
          echo "NAME2=Project-" >> $GITHUB_ENV
          echo "ZUOZHE=CTCGFW" >> $GITHUB_ENV
-        elif [ $REPO_URL == "https://github.com/openwrt/openwrt" ]; then
-         echo "NAME2=Official-" >> $GITHUB_ENV
         fi
         rm -rf {LICENSE,README,README.md}
         rm -rf ./*/{LICENSE,README,README.md}
