@@ -109,7 +109,6 @@ jobs:
         if [ ${{matrix.target}} != openwrt ]; then
           rm -rf package/lienol/luci-app-timecontrol
           rm -rf package/diy/luci-app-adguardhome
-          rm -rf package/ntlf9t/{smartdns,luci-app-smartdns}
           rm -rf package/ctcgfw/{luci-app-argon-config,luci-theme-argonv3,luci-app-adguardhome}
           rm -rf package/lean/{luci-app-netdata,luci-theme-argon,k3screenctrl}
         fi
