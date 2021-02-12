@@ -11,7 +11,7 @@
 
 - 制作了一个一键重新拉取我编译仓库的脚本，有需要的可以去看看。《[一键重新拉取编译仓库](https://github.com/281677160/sync-forks)》
 
-- 选择Lede_phicomm_n1或Project_phicomm_n1的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）OpenWrt固件，固件已经自动打包好【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
+- 选择Lede_phicomm_n1或Project_phicomm_n1的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）OpenWrt固件，固件已经自动打包好，把固件写入优盘启动再在openwrt里面用命令写入emmc即可【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
 
 - 除了编译 openwrt 机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧 【[插件包](https://github.com/281677160/openwrt-package)】
 #
