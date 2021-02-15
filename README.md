@@ -11,6 +11,8 @@
 
 - 请大家编译任何科学上网插件的时候不要选择v2ray，因为xray已经兼容了v2ray的了，同时选择会出现编译错误。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
+- ## 13号开始编译科学上网插件的时候选择v2ray-plugin也会出现编译错误，等待修复，所以这几天编译科学上网的要注意了，别选v2ray-plugin
+
 - 制作了一个一键重新拉取我编译仓库的脚本，有需要的可以去看看。《[一键重新拉取编译仓库](https://github.com/281677160/sync-forks)》
 
 - 选择Lede_phicomm_n1或Project_phicomm_n1的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）OpenWrt固件，固件已经自动打包好，把固件写入优盘启动再在openwrt里面用命令写入emmc即可【[写入emmc方法](https://github.com/danshui-git/shuoming/blob/master/n1.md)】
