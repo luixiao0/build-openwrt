@@ -78,6 +78,7 @@ popd
 Diy_n1() {
 cd ../
 svn co https://github.com/281677160/N1/trunk reform
+cd openwrt
 }
 
 Diy_n1_2() {
