@@ -185,10 +185,10 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         if [ "${REGULAR_UPDATE}" == "true" ]; then
-        source $GITHUB_WORKSPACE/build/${{matrix.target}}/diy-3.sh && Diy_Part2
-        echo "log1=$(awk 'NR==4' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
-        echo "log2=$(awk 'NR==3' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
-        echo "log3=$(awk 'NR==1' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
+          source $GITHUB_WORKSPACE/build/${{matrix.target}}/diy-3.sh && Diy_Part2
+          echo "log1=$(awk 'NR==4' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
+          echo "log2=$(awk 'NR==3' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
+          echo "log3=$(awk 'NR==1' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
         fi
     
     - name: 开始编译固件
@@ -204,12 +204,12 @@ jobs:
         DEVICE="$(awk -F '[="]+' '/TARGET_BOARD/{print $2}' .config)"
         SUBTARGET="$(awk -F '[="]+' '/TARGET_SUBTARGET/{print $2}' .config)"
         if [ "$DEVICE" == "x86" ]; then
-         echo "NAME1=x86-${SUBTARGET}" >> $GITHUB_ENV
+          echo "NAME1=x86-${SUBTARGET}" >> $GITHUB_ENV
         elif [ "${{matrix.target}}" == "Lede_phicomm_n1" -o "${{matrix.target}}" == "Project_phicomm_n1" ];then
-         echo "NAME1=n1,Vplus,Beikeyun,L1Pro,S9xxx" >> $GITHUB_ENV
+          echo "NAME1=n1,Vplus,Beikeyun,L1Pro,S9xxx" >> $GITHUB_ENV
         elif [ "$DEVICE" != "x86" ]; then
-         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > NAME1
-         [ -s NAME1 ] && echo "NAME1=$(cat NAME1)" >> $GITHUB_ENV
+          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > NAME1
+          [ -s NAME1 ] && echo "NAME1=$(cat NAME1)" >> $GITHUB_ENV
         fi
     
     - name: 上传bin文件夹(固件+ipk)在github空间
@@ -241,12 +241,12 @@ jobs:
       run: |
         cd openwrt
         if [ "${REGULAR_UPDATE}" == "true" ]; then
-        source $GITHUB_WORKSPACE/build/${{matrix.target}}/diy-3.sh && Diy_Part3
+          source $GITHUB_WORKSPACE/build/${{matrix.target}}/diy-3.sh && Diy_Part3
         fi
         mkdir bin/config
         find bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} bin/config
         if [ -n "$(ls -A "openwrt/bin/targets/x86" 2>/dev/null)" ]; then
-         find bin/targets/x86/* -name "*kernel*" | xargs -i mv -f {} bin/targets
+          find bin/targets/x86/* -name "*kernel*" | xargs -i mv -f {} bin/targets
         fi
         cd bin/targets/*/*
         rm -rf packages && mkdir packages
