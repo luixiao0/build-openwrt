@@ -43,7 +43,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_x86_64,Lede_nanopi_r2s,Project_phicomm_n1]
+        target: [Lede_x86_64]
 
      # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4]
 
@@ -127,7 +127,7 @@ jobs:
           elif [ $REPO_URL == "https://github.com/immortalwrt/immortalwrt" ]; then
             source common/common.sh && Diy_immortalwrt
           fi
-         fi
+        fi
         if [ -f "build/${{matrix.target}}/$DIY_P1_SH" ]; then
           chmod +x build/${{matrix.target}}/$DIY_P1_SH
           /bin/bash "build/${{matrix.target}}/$DIY_P1_SH"
@@ -301,7 +301,7 @@ jobs:
       with:
         name: ${{ env.date1 }} 「 ${{ env.WXFB_MESSAGE }} 」固件
         tag_name: ${{ env.date2 }}
-        body: |            
+        body: |
             ☆  源码 : ${{ env.REPO_URL }}
             ☆  分支 : ${{ env.REPO_BRANCH }}
             ☆  感谢源码作者[ ${{ env.ZUOZHE }}大神 ]无私分享！
