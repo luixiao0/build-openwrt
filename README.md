@@ -3,19 +3,13 @@
 #### - 【[Telegram交流群](https://t.me/joinchat/AAAAAE3eOMwEHysw9HMcVQ)】-&nbsp;&nbsp;&nbsp;- 【[Telegram下载](https://telegram.org/)】-&nbsp;&nbsp;&nbsp;- 【[Telegram使用中文方法](https://github.com/danshui-git/shuoming/blob/master/tele.md)】-
 #
 
-- 《[附带定时更新的新仓库](https://github.com/281677160/AutoBuild-OpenWrt)》
+- ### 2021年2月19号改版最新编译脚本，此次脚本增加一个自定义文件，这个文件是每次启动编译时候拉取的，这个文件是由我修改的，这样是为了有时候出现一些小错误而我又可以解决的，又能在这个自定义文件内可以用命令解决的的，我就可以在里面增加一个命令就搞定了，那就不需要你们自己动手搞，这样大大的方便了大家使用脚本，当然，前提是有错误的时候有人提出来，我也有时间弄才行，但总比没有的好
 
-- #### 2021年2月17号说明，大家如果编译project源码出现libncursesw6错误的话，不要慌，这个是上游出问题，等修复
-
-- ## 编译ssr plus的时候需要选择v2ray-plugin的，在diy-1.sh或者diy-2.sh里面增加一下命令就好了
-
-      curl -fsSL  https://raw.githubusercontent.com/xiaorouji/openwrt-passwall/main/v2ray-plugin/Makefile > package/lean/v2ray-plugin/Makefile
-
-- 2021年1月26号说明，26号开始插件包取消任何科学上网插件，有需要的请自行拉取《[拉取插件方法](https://github.com/danshui-git/shuoming/blob/master/ming.md)》，如果编译出现错误或者什么情况的，请大家都拉取我的最新仓库使用。
+- 《[附带定时更新的新仓库和说明](https://github.com/281677160/AutoBuild-OpenWrt)》
 
 - 弄了一个启动教程视频，mp4格式，存网盘了，需要的自己下载。《[谷歌云](https://drive.google.com/drive/folders/1WEUtVfiVtR5lyG8aX4RcDGdUPV6uMlxt?usp=sharing)》、《[百度（密码：apek）](https://pan.baidu.com/s/1RVi4nN8Y1ak9LTWzhV5bSQ)》、《[微云](https://share.weiyun.com/33SgJdCO)》
 
-- 请大家编译任何科学上网插件的时候不要选择v2ray，因为xray已经兼容了v2ray的了，同时选择会出现编译错误。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
+- 请大家编译任何科学上网插件的时候看到有v2ray的请不要选择，因为xray已经兼容了v2ray的了，同时选择会出现编译错误。【[图片说明](https://github.com/danshui-git/shuoming/blob/master/cg.md)】
 
 - 制作了一个一键重新拉取我编译仓库的脚本，有需要的可以去看看。《[一键重新拉取编译仓库](https://github.com/281677160/sync-forks)》
 
@@ -49,7 +43,7 @@
 - 11、`安装固件`，安装固件时出现“Please press Enter to activate this console”就表示安装好了，出现这个就不会跑码的，稍等1分钟就可以进入网页了
 - 如果会跑码，就耐心等待跑码完成，应该不需要1分钟就能跑完的
 #
-- 12、`保存固件配置`，编译固件之前打开‘`SSH连接服器配置固件`’跟‘`上传【.config】配置文件在github空间`’，编译的时候SSH连接服务器修改好插件跟其他应用，编译成功后会有固件跟.config配置文件的，下载.config配置文件后，解压得到一个【config.buildinfo】文件，用记事本打开，把里面的内容都复制，然后覆盖对应机型.config里面原来的内容，这样就会保持你的配置了，下次编译在不修改配置的情况下可以使用定时编译功能，或者手机启动编译，本地提取.config配置文件覆盖进去也可以
+- 12、`保存固件配置`，编译固件之前打开‘`SSH连接服器配置固件`’跟‘`上传【.config】配置文件在github空间`’，编译的时候SSH连接服务器修改好插件跟其他应用，编译成功后会有固件跟.config配置文件的，下载.config配置文件后，解压得到一个【config.buildinfo】文件，用记事本打开，把里面的内容都复制，然后覆盖对应机型.config里面原来的内容，这样就会保存你的配置了，下次编译在不修改配置的情况下可以使用定时编译功能，或者手机启动编译，本地提取.config配置文件覆盖进去也可以
 #
 - 13、
 《[定时触发编译说明](https://github.com/danshui-git/shuoming/blob/master/%E5%AE%9A%E6%97%B6%E7%BC%96%E8%AF%91%E8%AF%B4%E6%98%8E.md)》
