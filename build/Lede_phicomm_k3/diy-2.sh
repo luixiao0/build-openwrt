@@ -21,7 +21,7 @@ sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz
 sed -i 's|^TARGET_|# TARGET_|g; s|# TARGET_DEVICES += phicomm-k3|TARGET_DEVICES += phicomm-k3|' target/linux/bcm53xx/image/Makefile
 
 # K3修改内核版本
-#sed -i 's/PATCHVER:=4.19/PATCHVER:=5.4/g' target/linux/x86/Makefile
+#sed -i 's/PATCHVER:=4.19/PATCHVER:=5.4/g' target/linux/bcm53xx/Makefile
 
 # 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
 sed -i 's/"BaiduPCS Web"/"百度网盘"/g' package/lean/luci-app-baidupcs-web/luasrc/controller/baidupcs-web.lua
