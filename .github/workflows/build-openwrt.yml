@@ -149,8 +149,8 @@ jobs:
         fi
         /bin/bash "${PATH1}/$DIY_P2_SH"
         find "${PATH1}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch"
-        if [ -n "$(ls -A "${PATH1}/${CONFIG_FILE}" 2>/dev/null)" ]; then
-          [ -e "${PATH1}/${CONFIG_FILE}" ] && mv "${PATH1}/${CONFIG_FILE}" .config
+        if [ -n "$(ls -A "$PATH1/$CONFIG_FILE" 2>/dev/null)" ]; then
+          [ -e "$PATH1/$CONFIG_FILE" ] && mv "$PATH1/$CONFIG_FILE" .config
         fi
         if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           echo "Compile_Date=$(date +%Y%m%d%H%M)" > $GITHUB_WORKSPACE/Openwrt.info
