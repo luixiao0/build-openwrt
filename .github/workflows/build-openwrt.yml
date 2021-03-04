@@ -108,7 +108,7 @@ jobs:
         cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
         chmod -R +x "${PATH1}"
         rm -rf {build,README.md}
-        if [ "${{ github.event.inputs.ssh }}" == 'ssh' ]; then
+        if [[ "${{ github.event.inputs.ssh }}" == 'ssh' ]]; then
           echo "SSHYC=true" >> $GITHUB_ENV
         fi
     
@@ -121,11 +121,11 @@ jobs:
       run: |
         cd openwrt
         source "${PATH1}/common.sh" && Diy_all
-        if [ "${REPO_URL}" == "${LEDE}" ]; then
+        if [[ "${REPO_URL}" == "${LEDE}" ]]; then
           source "${PATH1}/common.sh" && Diy_lede
-        elif [ "${REPO_URL}" == "${LIENOL}" ]; then
+        elif [[ "${REPO_URL}" == "${LIENOL}" ]]; then
           source "${PATH1}/common.sh" && Diy_lienol
-        elif [ "${REPO_URL}" == "${PROJECT}" ]; then
+        elif [[ "${REPO_URL}" == "${PROJECT}" ]]; then
           source "${PATH1}/common.sh" && Diy_immortalwrt
         fi
         /bin/bash "${PATH1}/$DIY_P1_SH"
@@ -134,15 +134,15 @@ jobs:
         cp -Rf "${PATH1}/files" ./ && chmod -R +x files
         cp -Rf "${PATH1}/diy"/* ./
         source "${PATH1}/common.sh" && Diy_all2
-        if [ "${REPO_URL}" == "${LEDE}" ]; then
+        if [[ "${REPO_URL}" == "${LEDE}" ]]; then
           source "${PATH1}/common.sh" && Diy_lede2
           echo "NAME2=Lede" >> $GITHUB_ENV
           echo "ZUOZHE=Lean's" >> $GITHUB_ENV
-        elif [ "${REPO_URL}" == "${LIENOL}" ]; then
+        elif [[ "${REPO_URL}" == "${LIENOL}" ]]; then
           source "${PATH1}/common.sh" && Diy_lienol2
           echo "NAME2=Lienol" >> $GITHUB_ENV
           echo "ZUOZHE=lienol's" >> $GITHUB_ENV
-        elif [ "${REPO_URL}" == "${PROJECT}" ]; then
+        elif [[ "${REPO_URL}" == "${PROJECT}" ]]; then
           source "${PATH1}/common.sh" && Diy_immortalwrt2
           echo "NAME2=Project" >> $GITHUB_ENV
           echo "ZUOZHE=ctcgfw" >> $GITHUB_ENV
@@ -152,7 +152,7 @@ jobs:
         if [ -n "$(ls -A "${PATH1}/$CONFIG_FILE" 2>/dev/null)" ]; then
           [ -e "${PATH1}/$CONFIG_FILE" ] && mv "${PATH1}/$CONFIG_FILE" .config
         fi
-        if [ "${REGULAR_UPDATE}" == "true" ]; then
+        if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           echo "Compile_Date=$(date +%Y%m%d%H%M)" > $GITHUB_WORKSPACE/Openwrt.info
           source "${PATH1}/upgrade.sh" && Diy_Part1
         fi
@@ -172,7 +172,7 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        if [ "${REGULAR_UPDATE}" == "true" ]; then
+        if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           source "${PATH1}/upgrade.sh" && Diy_Part2
         fi
     
