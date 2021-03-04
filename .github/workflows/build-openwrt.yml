@@ -281,6 +281,9 @@ jobs:
         echo "##### 奶牛快传：$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
         echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
+        echo "###### 源码作者：${ZUOZHE}" >> update_log.txt
+        echo "###### 源码链接：${REPO_URL}" >> update_log.txt
+        
     
     - name: 把定时更新固件发布到云端
       uses: softprops/action-gh-release@v1
