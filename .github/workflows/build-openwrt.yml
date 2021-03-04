@@ -236,7 +236,7 @@ jobs:
         mkdir bin/config
         cp bin/targets/*/*/config.buildinfo bin/config
         if [ -n "$(ls -A "bin/targets/x86" 2>/dev/null)" ]; then
-          mv bin/targets/*/*/kernel bin/targets
+          mv bin/targets/*/*/*kernel bin/targets
         fi
         cd bin/targets/*/*
         rm -rf packages && mkdir packages
