@@ -272,7 +272,7 @@ jobs:
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
     
-    - name: 提取发布用的「奶牛快传」跟「WeTransfer」的链接
+    - name: 整理发布信息
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       run: |
         echo "### 发布于$(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
