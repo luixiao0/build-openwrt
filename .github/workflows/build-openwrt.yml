@@ -234,9 +234,9 @@ jobs:
           source "${PATH1}/upgrade.sh" && Diy_Part3
         fi
         mkdir bin/config
-        cp bin/targets/*/*/config.buildinfo bin/config
-        if [ -n "$(ls -A "bin/targets/x86" 2>/dev/null)" ]; then
-          mv bin/targets/*/*/*kernel bin/targets
+        find bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} bin/config
+        if [ -n "$(ls -A "openwrt/bin/targets/x86" 2>/dev/null)" ]; then
+          find bin/targets/x86/* -name "*kernel*" | xargs -i mv -f {} bin/targets
         fi
         cd bin/targets/*/*
         rm -rf packages && mkdir packages
