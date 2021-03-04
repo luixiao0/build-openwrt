@@ -13,27 +13,19 @@ on:
         description: 'SSH远程'
         required: false
         default: 'ssh-actions'
-      wxtz:
-        description: '微信通知'
-        required: false
-        default: 'wxtz-actions'
-      release:
-        description: '发布固件'
-        required: false
-        default: 'release-actions'
 
 #定时触发开始编译(把下面两个#去掉开启,时间设置请看定时编译说明)
 #  schedule:
 #    - cron: 0 8 */5 * *
 
-env: 
-  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-  SCKEY: ${{ secrets.SCKEY }}
-  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+env:
+  LEDE: https://github.com/coolsnowwolf/lede
+  LIENOL: https://github.com/Lienol/openwrt
+  PROJECT: https://github.com/immortalwrt/immortalwrt
+  GRELEASE: https://github.com/${{github.repository}}
   TZ: Asia/Shanghai
 
-jobs: 
+jobs:
   build:
     runs-on: Ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
@@ -42,18 +34,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_x86_64,Project_x86_64,Lienol_x86_64]
+        target: [Project_x86_64,Lede_x86_64,Lede_phicomm_k2p,Lede_phicomm_n1,Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1]
 
-     # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4]
-
+     # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p]
+     # [Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4]
+     
      # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64]
 
-     # [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5]
+     # [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5] 
 
-     # [openwrt] 
-
-     # 除了编译【openwrt】机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。
-     # 选择编译【openwrt】纯天然不经任何修改的，增加插件可以在diy-1.sh增加，也可在settings.ini里修改成你想要编译的源码跟分支。
+     # 各个源码都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。
      # 选择【Lede_phicomm_n1或Project_phicomm_n1】的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）固件。
 
     steps:
@@ -68,7 +58,6 @@ jobs:
         echo "REPO_URL=${REPO_URL}" >> $GITHUB_ENV
         echo "REPO_BRANCH=${REPO_BRANCH}" >> $GITHUB_ENV
         echo "CONFIG_FILE=${CONFIG_FILE}" >> $GITHUB_ENV
-        echo "WXFB_MESSAGE=${WXFB_MESSAGE}" >> $GITHUB_ENV
         echo "DIY_P1_SH=${DIY_P1_SH}" >> $GITHUB_ENV
         echo "DIY_P2_SH=${DIY_P2_SH}" >> $GITHUB_ENV
         echo "SSH_ACTIONS=${SSH_ACTIONS}" >> $GITHUB_ENV
@@ -84,13 +73,13 @@ jobs:
     
     - name: 微信通知
       uses: emon100/Action-Serverchan@v2
-      if: env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
+      if: env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
-        text: 主人"${{ env.WXFB_MESSAGE }}"编译开始啦
-        desp: 主人您要编译的["${{ env.WXFB_MESSAGE }}"]固件正在努力耕耘中,请耐心等待......
+        text: 主人${{matrix.target}}编译开始啦
+        desp: 主人您要编译的[${{matrix.target}}]固件正在努力耕耘中,请耐心等待......
     
-    - name: 开始安装编译所需系统
+    - name: 整理编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -102,88 +91,79 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-
+    
     - name: 下载"${{matrix.target}}"源码
       working-directory: /workdir
       run: |
-        df -hT $PWD
-        git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
+        git clone -b "$REPO_BRANCH" --single-branch "$REPO_URL" "openwrt"
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        git clone -b main --single-branch https://github.com/281677160/Custom openwrt/common
-        chmod +x openwrt/common/* ./
+        echo "Home=${GITHUB_WORKSPACE}/openwrt" >> $GITHUB_ENV
+        echo "PATH1=${GITHUB_WORKSPACE}/openwrt/build/${{matrix.target}}" >> $GITHUB_ENV
+        echo "artifact=${GITHUB_WORKSPACE}/openwrt/bin/Firmware" >> $GITHUB_ENV
+    
+    - name: 整理脚本文件
+      run: |
+        git clone -b main https://github.com/281677160/ceshi1 "${GITHUB_WORKSPACE}/build/common"
+        cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
+        cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
+        chmod -R +x "${PATH1}"
+        rm -rf {build,README.md}
+        if [ "${{ github.event.inputs.ssh }}" == 'ssh' ]; then
+          echo "SSHYC=true" >> $GITHUB_ENV
+        fi
     
     - name: 公告（每次启动都读取最新内容，展开可以查看）
       run: |
         cd openwrt
-        echo "GITHUB_RELEASE=$(grep "https://github.com/[a-zA-Z0-9]" ${GITHUB_WORKSPACE}/.git/config | cut -c8-100)" >> $GITHUB_ENV
-        source common/common.sh && Diy_notice
+        source "${PATH1}/common.sh" && Diy_notice
     
     - name: 加载源,patch补丁和自定义设置
       run: |
-        cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         cd openwrt
-        source common/common.sh && Diy_all
-        if [ ${{matrix.target}} != "openwrt" ]; then
-          if [ "${REPO_URL}" == "https://github.com/coolsnowwolf/lede" ]; then
-            source common/common.sh && Diy_lede
-          elif [ "${REPO_URL}" == "https://github.com/Lienol/openwrt" ]; then
-            source common/common.sh && Diy_lienol
-          elif [ "${REPO_URL}" == "https://github.com/immortalwrt/immortalwrt" ]; then
-            source common/common.sh && Diy_immortalwrt
-          fi
+        source "${PATH1}/common.sh" && Diy_all
+        if [ "${REPO_URL}" == "${LEDE}" ]; then
+          source "${PATH1}/common.sh" && Diy_lede
+        elif [ "${REPO_URL}" == "${LIENOL}" ]; then
+          source "${PATH1}/common.sh" && Diy_lienol
+        elif [ "${REPO_URL}" == "${PROJECT}" ]; then
+          source "${PATH1}/common.sh" && Diy_immortalwrt
         fi
-        if [ -f "build/${{matrix.target}}/$DIY_P1_SH" ]; then
-          chmod +x build/${{matrix.target}}/$DIY_P1_SH
-          /bin/bash "build/${{matrix.target}}/$DIY_P1_SH"
-        fi
+        /bin/bash "${PATH1}/$DIY_P1_SH"
         ./scripts/feeds clean && ./scripts/feeds update -a
         ./scripts/feeds install -a && ./scripts/feeds install -a
-        source common/common.sh && Diy_all2
-        if [ "${REPO_URL}" == "https://github.com/coolsnowwolf/lede" ]; then
-          source common/common.sh && Diy_lede2
-          echo "NAME2=Lede-" >> $GITHUB_ENV
-          echo "Source=Lede" >> $GITHUB_ENV
-          echo "ZUOZHE=lean" >> $GITHUB_ENV
-        elif [ "${REPO_URL}" == "https://github.com/Lienol/openwrt" ]; then
-          source common/common.sh && Diy_lienol2
-          echo "NAME2=Lienol-" >> $GITHUB_ENV
-          echo "Source=Lienol" >> $GITHUB_ENV
-          echo "ZUOZHE=lienol" >> $GITHUB_ENV
-        elif [ "${REPO_URL}" == "https://github.com/immortalwrt/immortalwrt" ]; then
-          source common/common.sh && Diy_immortalwrt2
-          echo "NAME2=Project-" >> $GITHUB_ENV
-          echo "Source=Project" >> $GITHUB_ENV
-          echo "ZUOZHE=CTCGFW" >> $GITHUB_ENV
+        cp -Rf "${PATH1}/files" ./ && chmod -R +x files
+        cp -Rf "${PATH1}/diy"/* ./
+        source "${PATH1}/common.sh" && Diy_all2
+        if [ "${REPO_URL}" == "${LEDE}" ]; then
+          source "${PATH1}/common.sh" && Diy_lede2
+          echo "NAME2=Lede" >> $GITHUB_ENV
+          echo "ZUOZHE=Lean's" >> $GITHUB_ENV
+        elif [ "${REPO_URL}" == "${LIENOL}" ]; then
+          source "${PATH1}/common.sh" && Diy_lienol2
+          echo "NAME2=Lienol" >> $GITHUB_ENV
+          echo "ZUOZHE=lienol's" >> $GITHUB_ENV
+        elif [ "${REPO_URL}" == "${PROJECT}" ]; then
+          source "${PATH1}/common.sh" && Diy_immortalwrt2
+          echo "NAME2=Project" >> $GITHUB_ENV
+          echo "ZUOZHE=ctcgfw" >> $GITHUB_ENV
         fi
-        if [ -f "build/${{matrix.target}}/$DIY_P2_SH" ]; then
-          chmod +x build/${{matrix.target}}/$DIY_P2_SH
-          /bin/bash "build/${{matrix.target}}/$DIY_P2_SH"
+        /bin/bash "${PATH1}/$DIY_P2_SH"
+        find "${PATH1}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch"
+        if [ -n "$(ls -A "${PATH1}/$CONFIG_FILE" 2>/dev/null)" ]; then
+          [ -e "${PATH1}/$CONFIG_FILE" ] && mv "${PATH1}/$CONFIG_FILE" .config
         fi
-        if [ -n "$(ls -A "build/${{matrix.target}}/patches" 2>/dev/null)" ]; then
-          find "build/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch"
-        fi
-        if [ -n "$(ls -A "build/${{matrix.target}}/files" 2>/dev/null)" ]; then
-          cp -rf build/${{matrix.target}}/files/* files
-          chmod -R 777 ./files
-        fi
-        if [ -n "$(ls -A "build/${{matrix.target}}/diy" 2>/dev/null)" ]; then
-          cp -Rf build/${{matrix.target}}/diy/* ./
-        fi
-        [ -e build/${{matrix.target}}/$CONFIG_FILE ] && mv build/${{matrix.target}}/$CONFIG_FILE .config
-        if [ ${{matrix.target}} != "openwrt" ]; then
-          if [ "${REGULAR_UPDATE}" == "true" ]; then
-            echo "Compile_Date=$(date +%Y%m%d-%H%M)" > $GITHUB_WORKSPACE/Openwrt.info
-            source common/upgrade.sh && Diy_Part1
-          fi
+        if [ "${REGULAR_UPDATE}" == "true" ]; then
+          echo "Compile_Date=$(date +%Y%m%d%H%M)" > $GITHUB_WORKSPACE/Openwrt.info
+          source "${PATH1}/upgrade.sh" && Diy_Part1
         fi
      
     - name: SSH远程连接（若打开了此功能,在此转圈2分钟还展开不了,请看《SSH连接教程》）
       uses: 281677160/debugger-action@master
-      if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
+    
     - name: 下载软件包
       id: package
       run: |
@@ -192,20 +172,15 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        if [ "${REGULAR_UPDATE}" == "true" ]; then
+          source "${PATH1}/upgrade.sh" && Diy_Part2
+        fi
     
     - name: 编译信息
       run: |
         cd openwrt
-        if [[ ${{matrix.target}} != "openwrt" ]]; then
-          if [[ "${REGULAR_UPDATE}" == "true" ]]; then
-            source common/upgrade.sh && Diy_Part2
-            echo "log1=$(awk 'NR==4' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
-            echo "log2=$(awk 'NR==3' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
-            echo "log3=$(awk 'NR==1' package/base-files/files/etc/openwrt_info)" >> $GITHUB_ENV
-          else
-            source common/common.sh && Diy_xinxi
-          fi
-        fi
+        source "${PATH1}/upgrade.sh"
+        source "${PATH1}/common.sh" && Diy_xinxi
     
     - name: 开始编译固件
       id: compile
@@ -215,15 +190,14 @@ jobs:
         make -j$(($(nproc)+1)) || make -j1 V=s
         echo "::set-output name=status::success"
         echo "date=$(date "+%y.%m.%d-%H%M")" >> $GITHUB_ENV
-        echo "date1=$(date "+%Y年%m月%d号-%H点%M分")" >> $GITHUB_ENV
         echo "date2=$(date "+%Y%m%d%H%M%S")" >> $GITHUB_ENV
         DEVICE="$(awk -F '[="]+' '/TARGET_BOARD/{print $2}' .config)"
         SUBTARGET="$(awk -F '[="]+' '/TARGET_SUBTARGET/{print $2}' .config)"
         if [ "${DEVICE}" == "x86" ]; then
          echo "NAME1=x86-${SUBTARGET}" >> $GITHUB_ENV
         elif [[ ${{matrix.target}} =~ (Lede_phicomm_n1|Project_phicomm_n1) ]]; then
-         echo "NAME1=n1,Vplus,Beikeyun,L1Pro,S9xxx" >> $GITHUB_ENV
-        elif [ "${DEVICE}" != "x86" ]; then
+         echo "NAME1=N1,Vplus,Beikeyun,L1Pro,S9xxx" >> $GITHUB_ENV
+        else
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > NAME1
          [ -s NAME1 ] && echo "NAME1=$(cat NAME1)" >> $GITHUB_ENV
         fi
@@ -232,14 +206,14 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: OpenWrt_bin_${{ env.NAME2 }}${{ env.NAME1 }}_${{ env.date }}
+        name: OpenWrt_bin_${{ env.NAME2 }}_${{ env.NAME1 }}_${{ env.date }}
         path: openwrt/bin
 
     - name: 编译N1机型时,打包（N1、微加云、贝壳云、我家云、S9xxx）固件
       run: |
         cd openwrt
         if [[ ${{matrix.target}} =~ (Lede_phicomm_n1|Project_phicomm_n1) ]]; then
-          source common/common.sh && Diy_n1
+          source "${PATH1}/common.sh" && Diy_n1
          cd out
          for x in ${devices[*]}; do
            cd $x
@@ -256,14 +230,12 @@ jobs:
       id: organizer
       run: |
         cd openwrt
-        if [[ ${{matrix.target}} != "openwrt" ]]; then
-          if [[ "${REGULAR_UPDATE}" == "true" ]]; then
-            source common/upgrade.sh && Diy_Part3
-          fi  
+        if [[ "${REGULAR_UPDATE}" == "true" ]]; then
+          source "${PATH1}/upgrade.sh" && Diy_Part3
         fi
         mkdir bin/config
         find bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} bin/config
-        if [ -n "$(ls -A "openwrt/bin/targets/x86" 2>/dev/null)" ]; then
+        if [ -n "$(ls -A "bin/targets/x86" 2>/dev/null)" ]; then
           find bin/targets/x86/* -name "*kernel*" | xargs -i mv -f {} bin/targets
         fi
         cd bin/targets/*/*
@@ -281,14 +253,14 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
       with:
-        name: .config-${{ env.NAME2 }}${{ env.NAME1 }}_${{ env.date }}
+        name: .config_${{ env.NAME2 }}_${{ env.NAME1 }}_${{ env.date }}
         path: openwrt/bin/config
 
     - name: 上传固件在github空间
       uses: actions/upload-artifact@v2
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
-        name: OpenWrt-${{ env.NAME2 }}${{ env.NAME1 }}-firmware-${{ env.date }}
+        name: OpenWrt-${{ env.NAME2 }}-${{ env.NAME1 }}-firmware-${{ env.date }}
         path: ${{ env.FIRMWARE }}
 
     - name: 上传固件到「奶牛快传」和「WeTransfer」
@@ -296,73 +268,44 @@ jobs:
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=奶牛快传（${{matrix.target}}）::$(cat cowtransfer.log | grep https)"
-        curl -fsSL git.io/file-transfer | sh
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "::warning file=WeTransfer（${{matrix.target}}）::$(cat wetransfer.log | grep https)"
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
     
     - name: 提取发布用的「奶牛快传」跟「WeTransfer」的链接
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' || (github.event.inputs.release == 'release' && github.event.inputs.release  != 'false')
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       run: |
+        echo "### 发布于$(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "COWTRANSFER_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
-        curl -fsSL git.io/file-transfer | sh
+        echo "##### 奶牛快传：$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "WETRANSFER_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
+        echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
     
-    - name: 自动发布固件
+    - name: 把定时更新固件发布到云端
       uses: softprops/action-gh-release@v1
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' || (github.event.inputs.release == 'release' && github.event.inputs.release  != 'false')
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-      with:
-        name: ${{ env.date1 }} 「 ${{ env.WXFB_MESSAGE }} 」固件
-        tag_name: ${{ env.date2 }}
-        body: |
-            ☆  源码 : ${{ env.REPO_URL }}
-            ☆  分支 : ${{ env.REPO_BRANCH }}
-            ☆  感谢源码作者[ ${{ env.ZUOZHE }}大神 ]无私分享！
-            
-            🎉 [ ${{ env.NAME2 }}${{ env.NAME1 }} ]固件下载 ✨
-            -
-            💐 奶牛快传(国内高速🚀下载)： ${{ env.COWTRANSFER_URL }}
-            
-            ⛄ WeTransfer(国外高速🚀下载)： ${{ env.WETRANSFER_URL }}
-            
-            🌴 链接有效期为7天，无需注册直接下载 🐤
-        files: ${{ env.FIRMWARE }}/*
-    
-    - name: 发布定时升级云端地址
-      uses: softprops/action-gh-release@v1
-      if: steps.compile.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
+      if: steps.organizer.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
       with:
         name: 定时升级云端地址
         tag_name: update_Firmware
-        body: ${{ env.log1 }}-${{ env.log2 }}-${{ env.log3 }}（完成时间-${{ env.date }}）
-        files: openwrt/bin/Firmware/*
+        files: ${{ env.artifact }}/*
+    
+    - name: 发布固件
+      uses: ncipollo/release-action@v1
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
+      with:
+        name: ${{ env.NAME2 }}${{ env.NAME1 }}
+        tag: ${{ env.date2 }}
+        token: ${{ secrets.REPO_TOKEN }}
+        bodyFile: "update_log.txt"
+        artifacts: "${{ env.FIRMWARE }}/*"
     
     - name: 微信通知
       uses: emon100/Action-Serverchan@v2
-      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
-        text: 恭喜主人${{ env.WXFB_MESSAGE }}固件编译成功！
+        text: 恭喜主人${{matrix.target}}固件编译成功！
         desp: 我亲爱的主人您要编译的[ ${{ env.NAME2 }}${{ env.NAME1 }} ]固件顺利编译完成了！
-              
-              
-              完成时间：${{ env.date1 }}
-              
-              
-              发布地址：${{ env.GITHUB_RELEASE }}/releases
-              
-              
-              奶牛快传：${{ env.COWTRANSFER_URL }}
-              
-              
-              WeTransfer：${{ env.WETRANSFER_URL }}
-              
-              
-              祝小主人见人爱，花见花开，车见车载，天天好心情🎈！！！
