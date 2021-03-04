@@ -234,9 +234,9 @@ jobs:
           source "${PATH1}/upgrade.sh" && Diy_Part3
         fi
         mkdir bin/config
-        find bin/targets/ -name "*config.buildinfo*" | xargs -i mv -f {} bin/config
+        cp bin/targets/*/*/config.buildinfo bin/config
         if [ -n "$(ls -A "bin/targets/x86" 2>/dev/null)" ]; then
-          find bin/targets/x86/* -name "*kernel*" | xargs -i mv -f {} bin/targets
+          mv bin/targets/*/*/kernel bin/targets
         fi
         cd bin/targets/*/*
         rm -rf packages && mkdir packages
@@ -283,8 +283,7 @@ jobs:
         echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
         echo "###### 源码作者：${ZUOZHE}" >> update_log.txt
         echo "###### 源码链接：${REPO_URL}" >> update_log.txt
-        
-    
+
     - name: 把定时更新固件发布到云端
       uses: softprops/action-gh-release@v1
       if: steps.organizer.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
@@ -299,7 +298,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       with:
-        name: ${{ env.NAME2 }}${{ env.NAME1 }}
+        name: ${{ env.NAME2 }}-${{ env.NAME1 }}
         tag: ${{ env.date2 }}
         token: ${{ secrets.REPO_TOKEN }}
         bodyFile: "update_log.txt"
