@@ -111,12 +111,8 @@ jobs:
         if [[ "${{ github.event.inputs.ssh }}" == 'ssh' ]]; then
           echo "SSHYC=true" >> $GITHUB_ENV
         fi
-        if [ -n "$(ls -A "$PATH1/${CONFIG_FILE}" 2>/dev/null)" ]; then
-          echo "....."
-        else
-          echo "缺少[.config]配置文件"
-          echo "# OpenWrt Configuration" > "$PATH1/${CONFIG_FILE}"
-        fi
+        cd openwrt
+        source "${PATH1}/common.sh" && Diy_settings
     
     - name: 公告（每次启动都读取最新内容，展开可以查看）
       run: |
