@@ -107,12 +107,11 @@ jobs:
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
         cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
         chmod -R +x "${PATH1}"
+        source "${PATH1}/common.sh" && Diy_settings
         rm -rf {build,README.md}
         if [[ "${{ github.event.inputs.ssh }}" == 'ssh' ]]; then
           echo "SSHYC=true" >> $GITHUB_ENV
         fi
-        cd openwrt
-        source "${PATH1}/common.sh" && Diy_settings
     
     - name: 公告（每次启动都读取最新内容，展开可以查看）
       run: |
@@ -151,9 +150,7 @@ jobs:
         fi
         /bin/bash "${PATH1}/$DIY_P2_SH"
         find "${PATH1}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch"
-        if [ -n "$(ls -A "$PATH1/$CONFIG_FILE" 2>/dev/null)" ]; then
-          [ -e "$PATH1/$CONFIG_FILE" ] && mv "$PATH1/$CONFIG_FILE" .config
-        fi
+        [ -e "$PATH1/$CONFIG_FILE" ] && mv "$PATH1/$CONFIG_FILE" .config
         if [[ "${REGULAR_UPDATE}" == "true" ]]; then
           echo "Compile_Date=$(date +%Y%m%d%H%M)" > $GITHUB_WORKSPACE/Openwrt.info
           source "${PATH1}/upgrade.sh" && Diy_Part1
