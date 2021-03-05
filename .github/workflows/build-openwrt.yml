@@ -105,8 +105,6 @@ jobs:
       run: |
         git clone -b main https://github.com/281677160/ceshi1 "${GITHUB_WORKSPACE}/build/common"
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
-        rm -rf "${Home}/build"/*
-        mv ${GITHUB_WORKSPACE}/build/{common,${{matrix.target}}} "${Home}/build"
         cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
         chmod -R +x "${PATH1}"
         rm -rf {build,README.md}
@@ -117,6 +115,7 @@ jobs:
           echo "....."
         else
           echo "缺少[.config]配置文件"
+          echo "# OpenWrt Configuration" > "$PATH1/${CONFIG_FILE}
         fi
     
     - name: 公告（每次启动都读取最新内容，展开可以查看）
