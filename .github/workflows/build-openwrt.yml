@@ -22,7 +22,7 @@ env:
   LEDE: https://github.com/coolsnowwolf/lede
   LIENOL: https://github.com/Lienol/openwrt
   PROJECT: https://github.com/immortalwrt/immortalwrt
-  GRELEASE: https://github.com/${{github.repository}}
+  GITURL: https://github.com/${{github.repository}}
   TZ: Asia/Shanghai
 
 jobs:
