@@ -132,7 +132,7 @@ jobs:
         /bin/bash "${PATH1}/$DIY_P1_SH"
         ./scripts/feeds clean
         ./scripts/feeds update -a && ./scripts/feeds install -a
-        cp -Rf "${PATH1}/files" ./ && chmod -R +x files
+        cp -Rf "${PATH1}/files" ./ && chmod -R +x ${Home}/files
         cp -Rf "${PATH1}/diy"/* ./
         source "${PATH1}/common.sh" && Diy_all2
         if [[ "${REPO_URL}" == "${LEDE}" ]]; then
