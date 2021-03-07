@@ -71,6 +71,14 @@ jobs:
         echo "Updete_firmware=${Updete_firmware}" >> $GITHUB_ENV
         echo "Extension=${Extension}" >> $GITHUB_ENV
     
+    
+    - name: 电报机器人信息通知
+      run: |
+        if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
+        curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人您要编译的[${{matrix.target}}]固件正在努力耕耘中,请耐心等待...... 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+        fi
+    
+    
     - name: 电报机器人信息通知
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
