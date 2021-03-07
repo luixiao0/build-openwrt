@@ -167,7 +167,6 @@ jobs:
     
     - name: 下载软件包
       run: |
-        cd openwrt
         source "${PATH1}/common.sh" && Diy_adgu
     
     - name: 下载软件包
