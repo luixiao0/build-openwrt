@@ -174,7 +174,6 @@ jobs:
     - name: 整理就绪,准备编译
       run: |
         cd openwrt
-        source "${PATH1}/upgrade.sh"
         source "${PATH1}/common.sh" && Diy_adgu
         if [ "${REGULAR_UPDATE}" == "true" ]; then
           source "${PATH1}/upgrade.sh" && Diy_Part2
