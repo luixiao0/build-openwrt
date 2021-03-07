@@ -310,5 +310,5 @@ jobs:
     - name: 电报机器人信息通知
       run: |
         if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
-        [ steps.compile.outputs.status == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨使用[${{matrix.target}}]编译的[${{ env.NAME2 }}${{ env.NAME1 }}]固件顺利编译完了！💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+        [ steps.organizer.outputs.status == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨使用[${{matrix.target}}]编译的[${{ env.NAME2 }}${{ env.NAME1 }}]固件顺利编译完了！💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
         fi
