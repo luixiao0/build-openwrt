@@ -107,12 +107,13 @@ jobs:
         cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
         chmod -R +x "${PATH1}"
         source "${PATH1}/common.sh" && Diy_settings
+        [ -s GONGGAO ] && echo "GONGGAO=$(cat GONGGAO)" >> $GITHUB_ENV
         rm -rf {build,README.md}
         if [[ "${{ github.event.inputs.ssh }}" == 'ssh' ]]; then
           echo "SSHYC=true" >> $GITHUB_ENV
         fi
     
-    - name: 公告（每次启动都读取最新内容，展开可以查看）
+    - name: 公告（${GONGGAO}）
       run: |
         cd openwrt
         source "${PATH1}/common.sh" && Diy_notice
