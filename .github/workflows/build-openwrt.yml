@@ -72,11 +72,13 @@ jobs:
         echo "Extension=${Extension}" >> $GITHUB_ENV
     
     
-    - name: 电报机器人信息通知
-      run: |
-        if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
-          curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人您要编译的[${{matrix.target}}]固件正在努力耕耘中,请耐心等待...... 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
-        fi
+    - name: 微信通知
+      uses: emon100/Action-Serverchan@v2
+      if: env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
+      with:
+        SCKEY: ${{ secrets.SCKEY }}
+        text: 主人${{matrix.target}}编译开始啦
+        desp: 主人您要编译的[${{matrix.target}}]固件正在努力耕耘中,请耐心等待......
      
     - name: 整理编译环境
       env:
@@ -308,10 +310,10 @@ jobs:
         bodyFile: "update_log.txt"
         artifacts: "${{ env.FIRMWARE }}/*"
     
-    - name: 电报机器人信息通知
-      run: |
-        if [[ "${BOT}" == "TRUE" ]]; then
-          if [[ "${SERVERCHAN_SCKEY}" == "true" ]]; then
-            curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨使用[${{matrix.target}}]编译的[${{ env.NAME2 }}${{ env.NAME1 }}]固件顺利编译完了！💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
-          fi
-        fi
+    - name: 微信通知
+      uses: emon100/Action-Serverchan@v2
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
+      with:
+        SCKEY: ${{ secrets.SCKEY }}
+        text: 恭喜主人${{ env.NAME2 }}_${{ env.NAME1 }}固件编译成功！
+        desp: 我亲爱的主人您使用${{matrix.target}}文件夹编译的[ ${{ env.NAME2 }}-${{ env.NAME1 }} ]固件顺利编译完成了！
