@@ -155,10 +155,6 @@ jobs:
           source "${PATH1}/upgrade.sh" && Diy_Part1
         fi
    
-    - name: 下载软件包
-      run: |
-        source "${PATH1}/common.sh" && Diy_adgu
-   
     - name: SSH远程连接（若打开了此功能,在此转圈2分钟还展开不了,请看《SSH连接教程》）
       uses: 281677160/debugger-action@master
       if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
@@ -174,6 +170,12 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+    
+    - name: 整理就绪,准备编译
+      run: |
+        cd openwrt
+        source "${PATH1}/upgrade.sh"
+        source "${PATH1}/common.sh" && Diy_adgu
         if [ "${REGULAR_UPDATE}" == "true" ]; then
           source "${PATH1}/upgrade.sh" && Diy_Part2
         fi
