@@ -74,7 +74,7 @@ jobs:
     
     - name: 微信通知
       uses: emon100/Action-Serverchan@v2
-      if: env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
+      if: env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 主人${{matrix.target}}编译开始啦
@@ -312,7 +312,7 @@ jobs:
     
     - name: 微信通知
       uses: emon100/Action-Serverchan@v2
-      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true' || (github.event.inputs.wxtz == 'wxtz' && github.event.inputs.wxtz  != 'false')
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
       with:
         SCKEY: ${{ secrets.SCKEY }}
         text: 恭喜主人${{ env.NAME2 }}_${{ env.NAME1 }}固件编译成功！
