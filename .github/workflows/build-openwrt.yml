@@ -282,16 +282,6 @@ jobs:
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
-    - name: 整理发布信息
-      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
-      run: |
-        echo "### 发布于$(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "##### 奶牛快传：$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
-        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
-
     - name: 把定时更新固件发布到云端
       uses: softprops/action-gh-release@v1
       if: steps.organizer.outputs.status == 'success' && env.REGULAR_UPDATE == 'true'
@@ -301,6 +291,16 @@ jobs:
         name: 定时升级云端地址
         tag_name: update_Firmware
         files: ${{ env.artifact }}/*
+    
+    - name: 整理发布信息
+      if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
+      run: |
+        echo "### 发布于$(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+        echo "##### 奶牛快传：$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
+        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+        echo "##### WETRANSFER：$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
     
     - name: 发布固件
       uses: ncipollo/release-action@v1
