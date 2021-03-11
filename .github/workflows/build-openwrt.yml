@@ -168,6 +168,11 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     
+    - name: 读取插件信息
+      run: |
+        cd openwrt
+        source "${PATH1}/common.sh" && Diy_chajian
+    
     - name: 下载软件包
       id: package
       run: |
