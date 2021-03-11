@@ -81,7 +81,7 @@ jobs:
         text: 主人${{matrix.target}}编译开始啦
         desp: 主人您要编译的[${{matrix.target}}]固件正在努力耕耘中,请耐心等待......
      
-    - name: 整理编译环境
+    - name: 设置编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -104,7 +104,7 @@ jobs:
         echo "PATH1=${GITHUB_WORKSPACE}/openwrt/build/${{matrix.target}}" >> $GITHUB_ENV
         echo "artifact=${GITHUB_WORKSPACE}/openwrt/bin/Firmware" >> $GITHUB_ENV
     
-    - name: 整理脚本文件
+    - name: 调整脚本文件
       run: |
         git clone -b main https://github.com/281677160/Custom "${GITHUB_WORKSPACE}/build/common"
         cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
@@ -121,7 +121,7 @@ jobs:
         cd openwrt
         source "${PATH1}/common.sh" && Diy_notice
 
-    - name: 加载源,patch补丁和自定义设置
+    - name: 加载源、patches、files、diy和自定义
       run: |
         cd openwrt
         source "${PATH1}/common.sh" && Diy_all
