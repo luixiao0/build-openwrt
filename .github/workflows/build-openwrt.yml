@@ -168,7 +168,7 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     
-    - name: 最后整理
+    - name: 准备工作的最后整理
       run: |
         cd openwrt
         source "${PATH1}/common.sh" && Diy_chajian
