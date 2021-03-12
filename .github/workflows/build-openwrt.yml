@@ -296,7 +296,7 @@ jobs:
     - name: 整理发布信息
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       run: |
-        echo "### 发布于$(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
+        echo "### (#${{github.run_number}})$(date +"%Y年%m月%d号-%H点%M分")" > update_log.txt
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
         echo "##### 奶牛快传：$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> update_log.txt
@@ -307,7 +307,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       with:
-        name: ${{ env.NAME2 }}-${{ env.NAME1 }}(#${{github.run_number}})
+        name: ${{ env.NAME2 }}-${{ env.NAME1 }}
         tag: ${{ env.date2 }}
         token: ${{ secrets.REPO_TOKEN }}
         bodyFile: "update_log.txt"
