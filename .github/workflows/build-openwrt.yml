@@ -177,7 +177,6 @@ jobs:
     
     - name: 为编译做最后处理
       run: |
-        echo
         cd openwrt
         source "${PATH1}/common.sh" && Diy_chajian
         make defconfig
@@ -203,7 +202,6 @@ jobs:
     - name: 开始编译固件
       id: compile
       run: |
-        echo
         cd openwrt
         echo -e "$(($(nproc)+1)) thread compile"
         make -j$(($(nproc)+1)) || make -j1 V=s
