@@ -107,17 +107,17 @@ jobs:
         echo "PATH1=${GITHUB_WORKSPACE}/openwrt/build/${{matrix.target}}" >> $GITHUB_ENV
         echo "artifact=${GITHUB_WORKSPACE}/openwrt/bin/Firmware" >> $GITHUB_ENV
     
-    - name: 调整脚本文件
-      run: |
-        git clone -b main https://github.com/281677160/Custom "${GITHUB_WORKSPACE}/build/common"
-        cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
-        cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
-        chmod -R +x "${PATH1}"
-        source "${PATH1}/common.sh" && Diy_settings
-        rm -rf {build,README.md}
-        if [[ "${{ github.event.inputs.ssh }}" == 'ssh' ]]; then
-          echo "SSHYC=true" >> $GITHUB_ENV
-        fi
+    # - name: 调整脚本文件
+    #   run: |
+    #     git clone -b main https://github.com/281677160/Custom "${GITHUB_WORKSPACE}/build/common"
+    #     cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
+    #     cp -Rf "${GITHUB_WORKSPACE}/build/common"/*.sh "${PATH1}"
+    #     chmod -R +x "${PATH1}"
+    #     source "${PATH1}/common.sh" && Diy_settings
+    #     rm -rf {build,README.md}
+    #     if [[ "${{ github.event.inputs.ssh }}" == 'ssh' ]]; then
+    #       echo "SSHYC=true" >> $GITHUB_ENV
+    #     fi
     
     - name: 公告
       run: |
