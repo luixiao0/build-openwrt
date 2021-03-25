@@ -16,7 +16,7 @@ jobs:
         github_token: ${{ secrets.REPO_TOKEN }}
         upstream_repository: 281677160/Actions-OpenWrt
         upstream_branch: main
-        target_repository: 281677160/build-openwrt     #修改成你的帐号/仓库名字
+        target_repository: kevinkenken/build-openwrt     #修改成你的帐号/仓库名字
         target_branch: main                                #你仓库的分支
         force: true
         tags: false
