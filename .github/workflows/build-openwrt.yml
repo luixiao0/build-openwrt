@@ -119,10 +119,10 @@ jobs:
     #       echo "SSHYC=true" >> $GITHUB_ENV
     #     fi
     
-    - name: 公告
-      run: |
-        cd openwrt
-        source "${PATH1}/common.sh" && Diy_notice
+    # - name: 公告
+    #   run: |
+    #     cd openwrt
+    #     source "${PATH1}/common.sh" && Diy_notice
 
     - name: 加载源,patch补丁和自定义设置
       run: |
